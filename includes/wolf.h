@@ -1,11 +1,12 @@
+#ifndef WOLF_H
+# define WOLF_H
 # include <unistd.h>
 # include <math.h>
 # include <stdio.h>
+# include <fcntl.h>
 # include "mlx.h"
+# include "mlx_keys.h"
 # include "libft.h"
-
-# define mapWidth 24
-# define mapHeight 24
 
 # define WIDTH 1280
 # define HEIGHT 800
@@ -23,9 +24,19 @@ typedef struct			s_point
 {
 	int		x;
 	int		y;
+	int		type;
 	int		color;
 }						t_point;
 
+typedef struct			s_map
+{
+	int		fd;
+	int		width;
+	int		height;
+	char	*buf;
+	t_point	*p;
+	t_point	**tab;
+}						t_map;
 typedef struct			s_env
 {
 	void		*mlx;
@@ -37,4 +48,10 @@ typedef struct			s_env
 	int			bpp;
 	int			endian;
 	t_point		p;
+	t_map		m;
 }						t_env;
+
+t_env					*parse(char *arg, t_env *e);
+int						quit(t_env *e);
+
+#endif

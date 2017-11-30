@@ -39,7 +39,7 @@ void	draw(t_env *e)
 	{
 		while (++y < HEIGHT)
 		{
-			put_pixel(x, y, 0xffffff, e);
+			put_pixel(x, y, 0, e);
 		}
 		y = -1;
 	}
@@ -48,8 +48,8 @@ void	draw(t_env *e)
 
 int		key_hook(int keycode, t_env *e)
 {
-	(void)keycode;
-	(void)e;
+	if (keycode == KEY_ESCAPE || keycode == KEY_Q)
+		quit(e);
 	return (0);
 }
 
@@ -62,30 +62,48 @@ int		mouse_hook(int button, int x, int y, t_env *e)
 	return (0);
 }
 
-int		expose_hook(t_env *e)
-{
-	(void)e;
-	return(0);
-}
-
-
 int		quit(t_env *e)
 {
 	mlx_destroy_window(e->mlx, e->win);
 	exit(0);
 }
 
+void	minimap(t_env *e)
+{
+	int		i;
+	int		k;
+	int		offx;
+	int		offy;
+	int		size;
+
+	i = -1;
+	k = -1;
+	offx = 50;
+	offy = 50;
+	size = 10;
+	while (++i < e->m.height)
+	{
+		while (++k < e->m.width)
+			put_pixel(i * size + offx, k * size + offy,
+					e->m.tab[i][k].type == 0 ? 0x00ff00 : 0xff0f0f, e);
+		k = -1;
+	}
+}
+
 int		main(int argc, char **argv)
 {
+	t_env	e;
+
 	(void)argc;
 	(void)argv;
-	t_env	e;
-	
 	init(&e);
+	if (argc == 2)
+		parse(argv[1], &e);
 	draw(&e);
+	minimap(&e);
+	mlx_put_image_to_window(e.data, e.win, e.img, 0, 0);
 	mlx_hook(e.win, 17, (1L << 17), quit, &e);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_mouse_hook(e.win, mouse_hook, &e);
-	mlx_expose_hook(e.win, expose_hook, &e);
 	mlx_loop(e.mlx);
 }
