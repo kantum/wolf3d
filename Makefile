@@ -2,7 +2,7 @@ NAME = wolf3d
 
 CC = clang
 
-CFLAGS = -Wall -Werror -Wextra #-g3 -march=native -flto -Ofast  -fsanitize=address  -std=c99
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 LFLAGS = -Llibft -lft -L$(MINILIB) -lmlx
 
@@ -10,7 +10,7 @@ DIR = srcs
 
 LIB = lib
 
-SRCS = main.c parse.c
+SRCS = main.c parse.c hook.c move.c
 
 SRC = $(addprefix $(DIR)/,$(SRCS))
 
@@ -20,7 +20,7 @@ HEADERS = includes -I libft/includes
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ)
+$(NAME): $(LIB) $(OBJ) Makefile
 	@$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME) $(ADDS)
 
 $(LIB): $(MINILIB)

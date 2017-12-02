@@ -1,42 +1,10 @@
 #include "wolf.h"
 
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
-}
-
-int			count_field(char const *s, char c)
-{
-	int	i;
-	int	read;
-	int	field;
-
-	i = -1;
-	read = 0;
-	field = 0;
-	while (s[++i] && s[i] != '\n')
-	{
-		if (s[i] == c)
-			read = 0;
-		else if (!(s[i] == c) && read == 0)
-		{
-			read = 1;
-			field++;
-		}
-	}
-	return (field);
-}
-
 static void	check_length(t_map *m)
 {
 	static int	l = 0;
 
-	m->width = count_field(m->buf, ' ');
+	m->width = ft_strlchr(m->buf, '\n');
 	if (!l)
 		l = m->width;
 	else if (l != m->width)
@@ -60,7 +28,7 @@ static void	*scan_input(t_map *m)
 			return (NULL);
 		free(f_ptr);
 	}
-	m->width = count_field(m->buf, ' ');
+	m->width = ft_strlchr(m->buf, '\n');
 	m->height = ft_getnline(m->buf);
 	free(m->buf);
 	close(m->fd);
@@ -69,28 +37,21 @@ static void	*scan_input(t_map *m)
 
 static void	*fill_tab(t_map *m)
 {
-	char	**tmp;
 	int		i;
 	int		k;
 
 	i = -1;
 	k = -1;
-	if (!(m->tab = (t_point**)malloc(sizeof(t_point*) * m->height)))
+	if (!(m->tab = (int**)malloc(sizeof(int*) * m->height)))
 		return (NULL);
 	while (get_next_line(m->fd, &m->buf))
 	{
 		check_length(m);
-		m->tab[++i] = (t_point*)malloc((sizeof(t_point) * m->width));
-		tmp = ft_strsplit(m->buf, ' ');
+		m->tab[++i] = (int*)malloc((sizeof(int) * m->width));
 		while (++k < m->width)
-		{
-			m->tab[i][k].x = k;
-			m->tab[i][k].y = i;
-			m->tab[i][k].type = ft_atoi(tmp[k]);
-		}
+			m->tab[i][k] = m->buf[k] - '0';
 		k = -1;
 		free(m->buf);
-		free_tab(tmp);
 	}
 	close(m->fd);
 	return (m);
