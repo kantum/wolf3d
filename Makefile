@@ -16,7 +16,8 @@ SRC = $(addprefix $(DIR)/,$(SRCS))
 
 OBJ = $(SRCS:.c=.o)
 
-HEADERS = includes -I libft/includes
+INC = includes 
+LIBINC = libft/includes
 
 all: $(NAME)
 
@@ -27,8 +28,8 @@ $(LIB): $(MINILIB)
 	@make -C libft
 	@make -C $(MINILIB)
 
-$(OBJ): $(SRC)
-	@$(CC) $(CFLAGS) -c $(SRC) -I $(HEADERS) -I $(MINILIB)
+$(OBJ): $(SRC) $(INC)
+	@$(CC) $(CFLAGS) -c $(SRC) -I $(INC) -I $(LIBINC) -I $(MINILIB)
 
 MINILIB: $(UNAME_S)
 
