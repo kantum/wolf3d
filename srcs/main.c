@@ -72,7 +72,7 @@ void	draw(t_env *e)
 	}
 	minimap(e);
 	hero(e);
-	mlx_put_image_to_window(e->data, e->win, e->img, 0, 0);
+	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 
 int		quit(t_env *e)
