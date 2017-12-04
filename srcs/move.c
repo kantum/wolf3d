@@ -17,7 +17,6 @@ void	movdown(t_env *e)
 		if (!(e->m.tab[(int)(e->h.x - e->h.dir.x * MOVSPEED)]
 			[(int)e->h.y]))
 			e->h.x -= e->h.dir.x * MOVSPEED;
-
 		if (!(e->m.tab[(int)e->h.x][(int)(e->h.y - e->h.dir.y * MOVSPEED)]))
 			e->h.y -= e->h.dir.y * MOVSPEED;
 	}
@@ -27,7 +26,6 @@ void	movup(t_env *e)
 {
 	if (e->h.mov & MOVUP)
 	{
-
 		if ((!(e->m.tab[(int)(e->h.x + e->h.dir.x * MOVSPEED)]
 			[(int)e->h.y])))
 			e->h.x += e->h.dir.x * MOVSPEED;

@@ -9,15 +9,27 @@
 # include "mlx_keys.h"
 # include "libft.h"
 
-# define WIDTH 1280
-# define HEIGHT 800
-# define MOVSPEED 0.15
-# define ROTSPEED 0.08
+# define NB_COLOR			6
+# define WHITE				0xffffff
+# define RED				0xff0000
+# define GREEN				0x00ff00
+# define BLUE				0x0000ff
+# define LBLUE				0x0f0fff
+# define GOLD				0xffd700
 
-# define MOVUP		1<<0
-# define MOVDOWN	1<<1
-# define MOVRIGHT	1<<2
-# define MOVLEFT	1<<3
+# define WIDTH				1280
+# define HEIGHT				800
+# define MOVSPEED			0.07
+# define ROTSPEED			0.07
+
+# define MOVUP				1<<0
+# define MOVDOWN			1<<1
+# define MOVRIGHT			1<<2
+# define MOVLEFT			1<<3
+
+# define MAP				1<<0
+# define HERO				1<<1
+# define RADAR				1<<2
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -65,24 +77,50 @@ typedef struct			s_map
 	t_point	*p;
 	int		**tab;
 }						t_map;
+
+typedef struct			s_rcast
+{
+	float	camerax;
+	float	posx;
+	float	posy;
+	float	dirx;
+	float	diry;
+	int		mapx;
+	int		mapy;
+	float	sidedistx;
+	float	sidedisty;
+	float	deltadistx;
+	float	deltadisty;
+	float	walldist;
+	short	hit;
+	short	side;
+	short	stepx;
+	short	stepy;
+	int		lineh;
+	int		drawstart;
+	int		drawend;
+	int		color[NB_COLOR];
+}						t_rcast;
+
 typedef struct			s_env
 {
-	void		*mlx;
-	void		*win;
-	int			color;
-	void		*img;
-	int			*data;
-	int			size;
-	int			bpp;
-	int			endian;
-	t_point		p;
-	t_map		m;
-	t_vect		plane;
-	t_hero		h;
-	float		movespeed;
-	float		rotspeed;
-	float		time;
-	float		oldtime;
+	void	*mlx;
+	void	*win;
+	int		color;
+	void	*img;
+	void	*img2;
+	int		*data;
+	int		size;
+	int		bpp;
+	int		endian;
+	t_point	p;
+	t_map	m;
+	t_hero	h;
+	t_rcast	r;
+	t_vect	plane;
+	float	time;
+	float	oldtime;
+	int		flags;
 }						t_env;
 
 t_env					*parse(char *arg, t_env *e);
@@ -102,5 +140,10 @@ void					movup(t_env *e);
 void					movdown(t_env *e);
 void					movleft(t_env *e);
 void					movright(t_env *e);
+int						init(t_env *e);
+void					put_pixel(int x, int y, int color, t_env *e);
+void					init_raycast(t_env *e);
+void					dda1(t_env *e);
+void					dda2(t_env *e);
 
 #endif

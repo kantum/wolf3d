@@ -10,7 +10,7 @@ DIR = srcs
 
 LIB = lib
 
-SRCS = main.c parse.c hook.c move.c
+SRCS = main.c parse.c hook.c move.c init.c minimap.c
 
 SRC = $(addprefix $(DIR)/,$(SRCS))
 

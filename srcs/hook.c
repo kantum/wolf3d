@@ -22,6 +22,8 @@ int		key_press(int keycode, t_env *e)
 	else if (keycode == KEY_DOWN || keycode == KEY_UP ||
 			keycode == KEY_LEFT || keycode == KEY_RIGHT)
 		set_mov(keycode, e);
+	if (keycode == KEY_M)
+		e->flags ^= MAP;
 	return (0);
 }
 
