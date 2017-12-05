@@ -5,12 +5,12 @@ void	hero(t_env *e)
 	int		size;
 
 	size = -3;
-	while(++size < 3)
+	while (++size < 3)
 	{
-	put_pixel(e->h.x * e->m.size + e->m.offx + size,
-			e->h.y * e->m.size + e->m.offy, 0xff66cc, e);
-	put_pixel(e->h.x * e->m.size + e->m.offx,
-			e->h.y * e->m.size + e->m.offy + size, 0xff66cc, e);
+		put_pixel(e->h.x * e->m.size + e->m.offx + size,
+				e->h.y * e->m.size + e->m.offy, 0xff66cc, e);
+		put_pixel(e->h.x * e->m.size + e->m.offx,
+				e->h.y * e->m.size + e->m.offy + size, 0xff66cc, e);
 	}
 }
 

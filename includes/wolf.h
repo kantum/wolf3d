@@ -10,6 +10,7 @@
 # include "libft.h"
 
 # define NB_COLOR			6
+
 # define WHITE				0xffffff
 # define RED				0xff0000
 # define GREEN				0x00ff00
@@ -30,6 +31,12 @@
 # define MAP				1<<0
 # define HERO				1<<1
 # define RADAR				1<<2
+# define FAST				1<<3
+
+# define NB_TEXTURE			2
+
+# define NO_ARG				1
+# define TEXTURE_ERR		2
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -52,16 +59,17 @@ typedef struct			s_point
 
 typedef struct			s_vect
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }						t_vect;
 
 typedef struct			s_hero
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 	t_vect	dir;
 	short	mov;
+	double	speed;
 }						t_hero;
 
 typedef struct			s_map
@@ -80,18 +88,18 @@ typedef struct			s_map
 
 typedef struct			s_rcast
 {
-	float	camerax;
-	float	posx;
-	float	posy;
-	float	dirx;
-	float	diry;
+	double	camerax;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
 	int		mapx;
 	int		mapy;
-	float	sidedistx;
-	float	sidedisty;
-	float	deltadistx;
-	float	deltadisty;
-	float	walldist;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	walldist;
 	short	hit;
 	short	side;
 	short	stepx;
@@ -100,6 +108,15 @@ typedef struct			s_rcast
 	int		drawstart;
 	int		drawend;
 	int		color[NB_COLOR];
+
+	int		texnum;
+	void	*voidtex[NB_TEXTURE];
+	char	*texture[NB_TEXTURE];
+	double	wallx;
+	int		texx;
+	long int		texy;
+	int		texw;
+	int		texh;
 }						t_rcast;
 
 typedef struct			s_env
@@ -111,15 +128,18 @@ typedef struct			s_env
 	void	*img2;
 	int		*data;
 	int		size;
+	int		texsize;
 	int		bpp;
+	int		texbpp;
 	int		endian;
+	int		texendian;
 	t_point	p;
 	t_map	m;
 	t_hero	h;
 	t_rcast	r;
 	t_vect	plane;
-	float	time;
-	float	oldtime;
+	double	time;
+	double	oldtime;
 	int		flags;
 }						t_env;
 
@@ -145,5 +165,8 @@ void					put_pixel(int x, int y, int color, t_env *e);
 void					init_raycast(t_env *e);
 void					dda1(t_env *e);
 void					dda2(t_env *e);
+void					raycast(t_env *e);
+void					error(t_env *e, int err);
+void					texture(int x, t_env *e);
 
 #endif

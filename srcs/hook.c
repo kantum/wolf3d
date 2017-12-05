@@ -24,16 +24,20 @@ int		key_press(int keycode, t_env *e)
 		set_mov(keycode, e);
 	if (keycode == KEY_M)
 		e->flags ^= MAP;
+	if (keycode == KEY_SHIFT_LEFT)
+		e->flags ^= FAST;
 	return (0);
 }
 
 int		key_release(int keycode, t_env *e)
 {
+	if (keycode == KEY_SHIFT_LEFT)
+		e->flags ^= FAST;
 	if (keycode == KEY_DOWN || keycode == KEY_UP ||
 		keycode == KEY_LEFT || keycode == KEY_RIGHT)
 		set_mov(keycode, e);
 	move(e);
-	return(0);
+	return (0);
 }
 
 void	hooks(t_env *e)
@@ -46,4 +50,3 @@ void	hooks(t_env *e)
 	mlx_loop_hook(e->mlx, loop_hook, e);
 	mlx_loop(e->mlx);
 }
-

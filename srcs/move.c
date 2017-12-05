@@ -12,35 +12,43 @@ int		move(t_env *e)
 
 void	movdown(t_env *e)
 {
+	if (e->flags & FAST)
+		e->h.speed = 0.2;
+	else
+		e->h.speed = 0.07;
 	if (e->h.mov & MOVDOWN)
 	{
-		if (!(e->m.tab[(int)(e->h.x - e->h.dir.x * MOVSPEED)]
+		if (!(e->m.tab[(int)(e->h.x - e->h.dir.x * e->h.speed)]
 			[(int)e->h.y]))
-			e->h.x -= e->h.dir.x * MOVSPEED;
-		if (!(e->m.tab[(int)e->h.x][(int)(e->h.y - e->h.dir.y * MOVSPEED)]))
-			e->h.y -= e->h.dir.y * MOVSPEED;
+			e->h.x -= e->h.dir.x * e->h.speed;
+		if (!(e->m.tab[(int)e->h.x][(int)(e->h.y - e->h.dir.y * e->h.speed)]))
+			e->h.y -= e->h.dir.y * e->h.speed;
 	}
 }
 
 void	movup(t_env *e)
 {
+	if (e->flags & FAST)
+		e->h.speed = 0.2;
+	else
+		e->h.speed = 0.07;
 	if (e->h.mov & MOVUP)
 	{
-		if ((!(e->m.tab[(int)(e->h.x + e->h.dir.x * MOVSPEED)]
+		if ((!(e->m.tab[(int)(e->h.x + e->h.dir.x * e->h.speed)]
 			[(int)e->h.y])))
-			e->h.x += e->h.dir.x * MOVSPEED;
-		if (!(e->m.tab[(int)e->h.x][(int)(e->h.y + e->h.dir.y * MOVSPEED)]))
-			e->h.y += e->h.dir.y * MOVSPEED;
+			e->h.x += e->h.dir.x * e->h.speed;
+		if (!(e->m.tab[(int)e->h.x][(int)(e->h.y + e->h.dir.y * e->h.speed)]))
+			e->h.y += e->h.dir.y * e->h.speed;
 	}
 }
 
 void	movleft(t_env *e)
 {
+	double	oldirx;
+	double	oldplanex;
+
 	if (e->h.mov & MOVLEFT)
 	{
-		float	oldirx;
-		float	oldplanex;
-
 		oldirx = e->h.dir.x;
 		e->h.dir.x = e->h.dir.x * cos(-ROTSPEED) - e->h.dir.y * sin(-ROTSPEED);
 		e->h.dir.y = oldirx * sin(-ROTSPEED) + e->h.dir.y * cos(-ROTSPEED);
@@ -52,11 +60,11 @@ void	movleft(t_env *e)
 
 void	movright(t_env *e)
 {
+	double	oldirx;
+	double	oldplanex;
+
 	if (e->h.mov & MOVRIGHT)
 	{
-		float	oldirx;
-		float	oldplanex;
-
 		oldirx = e->h.dir.x;
 		e->h.dir.x = e->h.dir.x * cos(ROTSPEED) - e->h.dir.y * sin(ROTSPEED);
 		e->h.dir.y = oldirx * sin(ROTSPEED) + e->h.dir.y * cos(ROTSPEED);
@@ -69,12 +77,12 @@ void	movright(t_env *e)
 int		set_mov(int keycode, t_env *e)
 {
 	if (keycode == KEY_UP)
-		e->h.mov ^=  MOVUP;
+		e->h.mov ^= MOVUP;
 	if (keycode == KEY_DOWN)
-		e->h.mov ^=  MOVDOWN;
+		e->h.mov ^= MOVDOWN;
 	if (keycode == KEY_LEFT)
-		e->h.mov ^=  MOVLEFT;
+		e->h.mov ^= MOVLEFT;
 	if (keycode == KEY_RIGHT)
-		e->h.mov ^=  MOVRIGHT;
+		e->h.mov ^= MOVRIGHT;
 	return (0);
 }
