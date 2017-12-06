@@ -30,6 +30,7 @@ void	init_raycast(t_env *e)
 	e->plane.y = 0.0;
 	e->time = 0;
 	e->oldtime = 0;
+
 	e->r.color[0] = WHITE;
 	e->r.color[1] = RED;
 	e->r.color[2] = GREEN;
@@ -57,6 +58,9 @@ void	load_texture(t_env *e)
 	if (!((e->r.voidtex[0] = mlx_xpm_file_to_image(e->mlx,
 						"./images/tex0.xpm", &e->size, &e->bpp))))
 		error(e, TEXTURE_ERR);
+
+//	e->r.voidtex[0]= bitmap_to_img("images/greywall.bmp", e);
+
 	e->r.texture[0] = mlx_get_data_addr(e->r.voidtex[0], &e->bpp, &e->texsize, &e->texendian);
 	if (!((e->r.voidtex[1] = mlx_xpm_file_to_image(e->mlx,
 						"./images/tex1.xpm", &e->size, &e->bpp))))
@@ -73,7 +77,7 @@ int		init(t_env *e)
 		return (-1);
 	e->win = mlx_new_window(e->mlx, WIDTH, HEIGHT, title);
 	e->img = mlx_new_image(e->mlx, WIDTH, HEIGHT);
-	e->data = (int *)mlx_get_data_addr(e->img, &e->bpp, &e->size, &e->endian);
+	e->data = (int*)mlx_get_data_addr(e->img, &e->bpp, &e->size, &e->endian);
 	init_hero(e);
 	init_map(e);
 	load_texture(e);

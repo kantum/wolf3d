@@ -34,6 +34,8 @@
 # define FAST				1<<3
 
 # define NB_TEXTURE			2
+# define TEXWIDTH			128
+# define TEXHEIGHT			128
 
 # define NO_ARG				1
 # define TEXTURE_ERR		2
@@ -111,7 +113,7 @@ typedef struct			s_rcast
 
 	int		texnum;
 	void	*voidtex[NB_TEXTURE];
-	char	*texture[NB_TEXTURE];
+	char		*texture[NB_TEXTURE];
 	double	wallx;
 	int		texx;
 	long int		texy;
@@ -168,5 +170,6 @@ void					dda2(t_env *e);
 void					raycast(t_env *e);
 void					error(t_env *e, int err);
 void					texture(int x, t_env *e);
+void 					*bitmap_to_img(char *filename, t_env *env);
 
 #endif

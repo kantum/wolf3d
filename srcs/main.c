@@ -17,10 +17,9 @@ void	draw(t_env *e)
 	while (++x < WIDTH)
 	{
 		while (++y < HEIGHT)
-			put_pixel(x, y, 0x000000, e);
+			put_pixel(x, y, 0xffffff, e);
 		y = -1;
 	}
-	//e->img = mlx_xpm_file_to_image(e->mlx , "./images/ciel.xpm", &e->size, &e->bpp);
 	raycast(e);
 	if (e->flags & MAP)
 		minimap(e);
@@ -37,15 +36,10 @@ void	error(t_env *e, int err)
 {
 	mlx_destroy_window(e->mlx, e->win);
 	if (err == NO_ARG)
-	{
 		ft_putendl_fd("usage: wolf3d [path to map]", 2);
-		exit (-1);
-	}
 	if (err == TEXTURE_ERR)
-	{
 		ft_putendl_fd("Error loading texture", 2);
-		exit (-1);
-	}
+	exit (-1);
 }
 
 int		main(int argc, char **argv)
