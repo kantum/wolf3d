@@ -107,6 +107,7 @@ void	raycast(t_env *e)
 		dda2(e);
 		walls(e);
 		//vertline(x, e);
+//	e->data = (int*)mlx_get_data_addr(e->img2, &e->bpp, &e->size, &e->endian);
 		textures(x, e);
 	}
 }

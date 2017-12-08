@@ -26,6 +26,12 @@ int		key_press(int keycode, t_env *e)
 		e->flags ^= MAP;
 	if (keycode == KEY_SHIFT_LEFT)
 		e->flags ^= FAST;
+	if (keycode == KEY_0)
+		e->background = "./images/fond.xpm";
+	if (keycode == KEY_1)
+		e->background = "./images/fond1.xpm";
+	if (keycode == KEY_2)
+		e->background = "./images/fond2.xpm";
 	return (0);
 }
 

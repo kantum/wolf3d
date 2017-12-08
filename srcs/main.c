@@ -9,17 +9,8 @@ void	put_pixel(int x, int y, int color, t_env *e)
 
 void	draw(t_env *e)
 {
-	int		x;
-	int		y;
-
-	x = -1;
-	y = -1;
-	while (++x < WIDTH)
-	{
-		while (++y < HEIGHT)
-			put_pixel(x, y, 0xffffff, e);
-		y = -1;
-	}
+	e->img = mlx_xpm_file_to_image(e->mlx, e->background, &e->width , &e->height);
+	e->data = (int*)mlx_get_data_addr(e->img, &e->bpp, &e->size, &e->endian);
 	raycast(e);
 	if (e->flags & MAP)
 		minimap(e);
@@ -41,6 +32,8 @@ void	error(t_env *e, int err)
 		ft_putendl_fd("Error loading texture", 2);
 	if (err == OPEN_ERR)
 		ft_putendl_fd("Error oppening file", 2);
+	if (err == PARSE_ERR)
+		ft_putendl_fd("Error parsing map", 2);
 	exit (-1);
 }
 

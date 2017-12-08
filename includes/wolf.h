@@ -19,7 +19,7 @@
 # define GOLD				0xffd700
 
 # define WIDTH				1280
-# define HEIGHT				800
+# define HEIGHT				720
 # define MOVSPEED			0.07
 # define ROTSPEED			0.07
 
@@ -40,7 +40,8 @@
 
 # define NO_ARG				1
 # define TEXTURE_ERR		2
-# define OPEN_ERR			2
+# define OPEN_ERR			3
+# define PARSE_ERR			4
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -59,6 +60,7 @@ typedef struct			s_ppm
 	int		width;
 	int		height;
 }						t_ppm;
+
 typedef struct			s_point
 {
 	int		x;
@@ -145,6 +147,8 @@ typedef struct			s_env
 	int		texbpp;
 	int		endian;
 	int		texendian;
+	int		width;
+	int		height;
 	t_point	p;
 	t_map	m;
 	t_hero	h;
@@ -153,6 +157,9 @@ typedef struct			s_env
 	double	time;
 	double	oldtime;
 	int		flags;
+	char	*background;
+
+	t_ppm	file;
 }						t_env;
 
 t_env					*parse(char *arg, t_env *e);
@@ -181,8 +188,7 @@ void					raycast(t_env *e);
 void					error(t_env *e, int err);
 void					textures(int x, t_env *e);
 
-unsigned int			*ppm_to_array(char *path, t_env *e);
+char					*ppm_to_array(char *path, t_env *e);
 int						*ppm_to_array2(char *path, t_env *e);
-void 					*bitmap_to_img(char *filename, t_env *env);
 
 #endif

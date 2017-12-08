@@ -11,7 +11,7 @@ DIR = srcs
 LIB = lib
 
 SRCS = main.c		parse.c	hook.c	move.c	init.c	minimap.c	raycast.c	\
-	   texture.c	bmp.c	ppm.c
+	   texture.c	ppm.c
 
 
 SRC = $(addprefix $(DIR)/,$(SRCS))

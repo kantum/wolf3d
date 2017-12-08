@@ -1,6 +1,6 @@
 #include "wolf.h"
 
-static void	check_length(t_map *m)
+static void	*check_length(t_map *m)
 {
 	static int	l = 0;
 
@@ -8,7 +8,8 @@ static void	check_length(t_map *m)
 	if (!l)
 		l = m->width;
 	else if (l != m->width)
-		exit(-1);
+		return (NULL);
+	return (m);
 }
 
 static void	*scan_input(t_map *m)
@@ -46,7 +47,8 @@ static void	*fill_tab(t_map *m)
 		return (NULL);
 	while (get_next_line(m->fd, &m->buf))
 	{
-		check_length(m);
+		if (!check_length(m))
+			return (NULL);
 		m->tab[++i] = (int*)malloc((sizeof(int) * m->width));
 		while (++k < m->width)
 			m->tab[i][k] = m->buf[k] - '0';
@@ -57,17 +59,71 @@ static void	*fill_tab(t_map *m)
 	return (m);
 }
 
+static int	place_hero(t_env *e)
+{
+	int	i;
+	int	k;
+
+	i = -1;
+	while (++i < e->m.height)
+	{
+		k = -1;
+		while (++k < e->m.width)
+		{
+			if (e->m.tab[i][k] < 0 || e->m.tab[i][k] > 9)
+			{
+				if (e->m.tab[i][k] == 'x' - '0')
+				{
+					e->h.x = i + 0.5;
+					e->h.y = k + 0.5;
+					e->m.tab[i][k] = 0;
+				}
+				else
+					return (0);
+			}
+		}
+	}
+	return (1);
+}
+
+int			check_border(t_env *e)
+{
+	int	i;
+
+	i = -1;
+	while (++i < e->m.width)
+		if (e->m.tab[0][i] == 0)
+			return (0);
+	i = -1;
+	while (++i < e->m.width)
+		if (e->m.tab[e->m.height - 1][i] == 0)
+			return (0);
+	i = -1;
+	while (++i < e->m.height)
+		if (e->m.tab[i][0] == 0)
+			return (0);
+	i = -1;
+	while (++i < e->m.height)
+		if (e->m.tab[i][e->m.width - 1] == 0)
+			return (0);
+	return (1);
+}
+
 t_env		*parse(char *arg, t_env *e)
 {
 	if (!(e->m.fd = open(arg, O_RDONLY)))
-		exit(-1);
+		error(e, PARSE_ERR);
 	if (!scan_input(&e->m))
-		exit(-1);
+		error(e, PARSE_ERR);
 	if (!(e->m.fd = open(arg, O_RDONLY)))
-		exit(-1);
+		error(e, PARSE_ERR);
 	if (!fill_tab(&e->m))
-		exit(-1);
+		error(e, PARSE_ERR);
 	if (e->m.width < 1 || e->m.height < 1)
-		exit(-1);
+		error(e, PARSE_ERR);
+	if (!place_hero(e))
+		error(e, PARSE_ERR);
+	if (!check_border(e))
+		error(e, PARSE_ERR);
 	return (e);
 }
