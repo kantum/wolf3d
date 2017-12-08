@@ -1,6 +1,4 @@
 /** BITMAP **/
-
-#include "wolf.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,6 +10,7 @@ typedef struct		s_pixel
   unsigned char		G;
   unsigned char		B;
 }					t_pixel;
+
 #pragma pack(pop)
 #pragma pack(push, 1)
 typedef struct		s_bitmap
@@ -39,6 +38,7 @@ typedef struct		s_bitmap
 /**
 BITMAP
 **/
+
 void *bitmap_to_img(char *filename, t_env *env)
 {
 	int				i;
@@ -49,19 +49,24 @@ void *bitmap_to_img(char *filename, t_env *env)
 	unsigned char *datas;
 
 	FILE *fp;
-
-	(void)env;
+	// ouverture du fichier et verification du sizeof du header
 	if(!(fp=fopen(filename,"rb")) || sizeof(source_info) != 54)
 		return (NULL);
+	// initialisation structure
 	memset(&source_info, 0, sizeof(source_info));
+	// lecture header
 	fread(&source_info, sizeof(source_info), 1, fp);
+	// si taille incoherente ou trop grande erreur
 	if (source_info.width < 0 || source_info.width > 2000 || source_info.height > 2000 || source_info.height < 0)
 		return (NULL);
+	// position du fd sur l'offset des datas
 	fseek(fp, source_info.dataoffSet, SEEK_SET);
+	// malloc datas, nb pixel * 3 (R, G, B)
 	datas = (unsigned char *)malloc(sizeof(unsigned char) * source_info.width * source_info.height * 3);
 	i = 0;
 	j = 0;
 	k = 0;
+	// recuperation des donnes, si width % 4 != 0 alors padding
 	while (i < source_info.height)
 	{
 		k = 0;
@@ -73,38 +78,42 @@ void *bitmap_to_img(char *filename, t_env *env)
 			datas[j++] = source_pix.B;
 			k++;
 		}
+		// padding
 		if (k % 4 != 0)
 			fread(NULL, k % 4, 1, fp);
 		i++;
 	}
-	int		*idatas;
-	int		bpx;
-	int		linesize;
-	//int		indian;
-	//idatas =  mlx_get_data_addr(img, &bpx, &linesize, &indian);
-	//idatas = (int *)malloc(sizeof(int*) * source_info.width * source_info.height * 3);
-	bpx = source_info.bitsperpixel;
-	linesize = source_info.width * 4;
-	idatas = malloc(sizeof(int*) * bpx * linesize * 128);
-	i = 0;
-	k = 0;
-	while ((int)i < source_info.height)
+	// creation image et copies des donnes, ATTENTION, la premiere ligne d'un bmp est la derniere, leture ligne par ligne en partant de la fin
+	void *img = mlx_new_image(env->mlx, source_info.width, source_info.height);
+	if (img)
 	{
-		j = 0;
-		k = (source_info.height - 1 - i) * (source_info.width * 3);
-		while ((int)j < source_info.width)
+		char	*idatas;
+		int		bpx;
+		int		linesize;
+		int		indian;
+		idatas =  mlx_get_data_addr(img, &bpx, &linesize, &indian);
+		i = 0;
+		k = 0;
+		while ((int)i < source_info.height)
 		{
-			int index = i * linesize + ((j * bpx) >> 3);
-
-			idatas[index] = datas[k++];
-			idatas[++index] = datas[k++];
-			idatas[++index] = datas[k++];
-			j++;
+			j = 0;
+			k = (source_info.height - 1 - i) * (source_info.width * 3);
+			while ((int)j < source_info.width)
+			{
+				int index = i * linesize + ((j * bpx) >> 3);
+				
+				idatas[index] = datas[k++];
+				idatas[++index] = datas[k++];
+				idatas[++index] = datas[k++];
+				j++;
+			}
+			i++;
 		}
-		i++;
+		// test debug display
+		mlx_put_image_to_window(env->mlx, env->win, img, 0, 0);
 	}
 	free(datas);
 	fclose(fp);
-	return (idatas);
+	return (img);
 }
 /** END BITMAP **/

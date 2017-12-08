@@ -107,6 +107,6 @@ void	raycast(t_env *e)
 		dda2(e);
 		walls(e);
 		//vertline(x, e);
-		texture(x, e);
+		textures(x, e);
 	}
 }

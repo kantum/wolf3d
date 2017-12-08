@@ -39,6 +39,8 @@ void	error(t_env *e, int err)
 		ft_putendl_fd("usage: wolf3d [path to map]", 2);
 	if (err == TEXTURE_ERR)
 		ft_putendl_fd("Error loading texture", 2);
+	if (err == OPEN_ERR)
+		ft_putendl_fd("Error oppening file", 2);
 	exit (-1);
 }
 

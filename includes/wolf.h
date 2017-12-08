@@ -3,7 +3,7 @@
 # include <unistd.h>
 # include <time.h>
 # include <math.h>
-# include <stdio.h>
+//# include <stdio.h>
 # include <fcntl.h>
 # include "mlx.h"
 # include "mlx_keys.h"
@@ -33,12 +33,14 @@
 # define RADAR				1<<2
 # define FAST				1<<3
 
-# define NB_TEXTURE			2
+# define NB_TEXTURE			9
 # define TEXWIDTH			128
 # define TEXHEIGHT			128
+# define MAX_IMG_SIZE		20000
 
 # define NO_ARG				1
 # define TEXTURE_ERR		2
+# define OPEN_ERR			2
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -51,6 +53,12 @@
 # define DESTROYNOTIFY		17
 # define STRUCTURENOTIFYMASK	(1L<<17)
 
+typedef struct			s_ppm
+{
+	char	*type;
+	int		width;
+	int		height;
+}						t_ppm;
 typedef struct			s_point
 {
 	int		x;
@@ -112,8 +120,10 @@ typedef struct			s_rcast
 	int		color[NB_COLOR];
 
 	int		texnum;
+	int		texsize;
+	int		texbpp;
 	void	*voidtex[NB_TEXTURE];
-	char		*texture[NB_TEXTURE];
+	int		*texture[NB_TEXTURE];
 	double	wallx;
 	int		texx;
 	long int		texy;
@@ -169,7 +179,10 @@ void					dda1(t_env *e);
 void					dda2(t_env *e);
 void					raycast(t_env *e);
 void					error(t_env *e, int err);
-void					texture(int x, t_env *e);
+void					textures(int x, t_env *e);
+
+unsigned int			*ppm_to_array(char *path, t_env *e);
+int						*ppm_to_array2(char *path, t_env *e);
 void 					*bitmap_to_img(char *filename, t_env *env);
 
 #endif
