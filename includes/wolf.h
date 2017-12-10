@@ -80,7 +80,6 @@ typedef struct			s_rgba
 	char a;
 }						t_rgba;
 
-
 typedef struct			s_ppm
 {
 	char	*type;
