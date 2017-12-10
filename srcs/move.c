@@ -1,16 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qdurot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/10 04:34:58 by qdurot            #+#    #+#             */
+/*   Updated: 2017/12/10 04:34:58 by qdurot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 
 int		move(t_env *e)
 {
-	movup(e);
-	movdown(e);
+	movupdown(e);
 	movleft(e);
 	movright(e);
 	draw(e);
 	return (0);
 }
 
-void	movdown(t_env *e)
+void	movupdown(t_env *e)
 {
 	if (e->flags & FAST)
 		e->h.speed = 0.2;
@@ -24,14 +35,6 @@ void	movdown(t_env *e)
 		if (!(e->m.tab[(int)e->h.x][(int)(e->h.y - e->h.dir.y * e->h.speed)]))
 			e->h.y -= e->h.dir.y * e->h.speed;
 	}
-}
-
-void	movup(t_env *e)
-{
-	if (e->flags & FAST)
-		e->h.speed = 0.2;
-	else
-		e->h.speed = 0.07;
 	if (e->h.mov & MOVUP)
 	{
 		if ((!(e->m.tab[(int)(e->h.x + e->h.dir.x * e->h.speed)]

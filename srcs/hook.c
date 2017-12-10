@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qdurot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/10 04:34:17 by qdurot            #+#    #+#             */
+/*   Updated: 2017/12/10 04:34:22 by qdurot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 
 int		mouse_hook(int button, int x, int y, t_env *e)
@@ -27,11 +39,15 @@ int		key_press(int keycode, t_env *e)
 	if (keycode == KEY_SHIFT_LEFT)
 		e->flags ^= FAST;
 	if (keycode == KEY_0)
-		e->background = "./images/fond.xpm";
+		e->background = "./images/background/fond.xpm";
 	if (keycode == KEY_1)
-		e->background = "./images/fond1.xpm";
+		e->background = "./images/background/fond1.xpm";
 	if (keycode == KEY_2)
-		e->background = "./images/fond2.xpm";
+		e->background = "./images/background/fond2.xpm";
+	if (keycode == KEY_3)
+		e->background = "./images/background/fond3.xpm";
+	if (keycode == KEY_4)
+		e->background = "./images/background/fond4.xpm";
 	return (0);
 }
 

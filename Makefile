@@ -2,7 +2,7 @@ NAME = wolf3d
 
 CC = clang
 
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
 
 LFLAGS = -Llibft -lft -L$(MINILIB) -lmlx
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qdurot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/10 04:34:59 by qdurot            #+#    #+#             */
+/*   Updated: 2017/12/10 04:34:59 by qdurot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 
 static void	*check_length(t_map *m)
@@ -57,33 +69,6 @@ static void	*fill_tab(t_map *m)
 	}
 	close(m->fd);
 	return (m);
-}
-
-static int	place_hero(t_env *e)
-{
-	int	i;
-	int	k;
-
-	i = -1;
-	while (++i < e->m.height)
-	{
-		k = -1;
-		while (++k < e->m.width)
-		{
-			if (e->m.tab[i][k] < 0 || e->m.tab[i][k] > 9)
-			{
-				if (e->m.tab[i][k] == 'x' - '0')
-				{
-					e->h.x = i + 0.5;
-					e->h.y = k + 0.5;
-					e->m.tab[i][k] = 0;
-				}
-				else
-					return (0);
-			}
-		}
-	}
-	return (1);
 }
 
 int			check_border(t_env *e)

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wolf.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qdurot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/10 04:35:03 by qdurot            #+#    #+#             */
+/*   Updated: 2017/12/10 04:35:03 by qdurot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef WOLF_H
 # define WOLF_H
 # include <unistd.h>
 # include <time.h>
 # include <math.h>
-//# include <stdio.h>
 # include <fcntl.h>
 # include "mlx.h"
 # include "mlx_keys.h"
@@ -21,7 +32,7 @@
 # define WIDTH				1280
 # define HEIGHT				720
 # define MOVSPEED			0.07
-# define ROTSPEED			0.07
+# define ROTSPEED			0.10
 
 # define MOVUP				1<<0
 # define MOVDOWN			1<<1
@@ -46,13 +57,29 @@
 # define KEYPRESS			2
 # define KEYRELEASE			3
 # define KEYPRESSMASK		(1L<<0)
-# define KEYRELEASEMASK		(1L<<1)  
+# define KEYRELEASEMASK		(1L<<1)
 # define MOTIONNOTIFY		6
 # define POINTERMOTIONMASK	(1L<<6)
 # define BUTTONRELEASE		5
 # define BUTTONRELEASEMASK	(1L<<3)
 # define DESTROYNOTIFY		17
 # define STRUCTURENOTIFYMASK	(1L<<17)
+
+typedef struct			s_rgb
+{
+	char r;
+	char g;
+	char b;
+}						t_rgb;
+
+typedef struct			s_rgba
+{
+	char r;
+	char g;
+	char b;
+	char a;
+}						t_rgba;
+
 
 typedef struct			s_ppm
 {
@@ -100,37 +127,37 @@ typedef struct			s_map
 
 typedef struct			s_rcast
 {
-	double	camerax;
-	double	posx;
-	double	posy;
-	double	dirx;
-	double	diry;
-	int		mapx;
-	int		mapy;
-	double	sidedistx;
-	double	sidedisty;
-	double	deltadistx;
-	double	deltadisty;
-	double	walldist;
-	short	hit;
-	short	side;
-	short	stepx;
-	short	stepy;
-	int		lineh;
-	int		drawstart;
-	int		drawend;
-	int		color[NB_COLOR];
+	double		camerax;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	int			mapx;
+	int			mapy;
+	double		sidedistx;
+	double		sidedisty;
+	double		deltadistx;
+	double		deltadisty;
+	double		walldist;
+	short		hit;
+	short		side;
+	short		stepx;
+	short		stepy;
+	int			lineh;
+	int			drawstart;
+	int			drawend;
+	int			color[NB_COLOR];
 
-	int		texnum;
-	int		texsize;
-	int		texbpp;
-	void	*voidtex[NB_TEXTURE];
-	int		*texture[NB_TEXTURE];
-	double	wallx;
-	int		texx;
-	long int		texy;
-	int		texw;
-	int		texh;
+	int			texnum;
+	int			texsize;
+	int			texbpp;
+	void		*voidtex[NB_TEXTURE];
+	int			*texture[NB_TEXTURE];
+	double		wallx;
+	int			texx;
+	long int	texy;
+	int			texw;
+	int			texh;
 }						t_rcast;
 
 typedef struct			s_env
@@ -174,9 +201,7 @@ void					hero(t_env *e);
 void					hooks(t_env *e);
 int						key_release(int keycode, t_env *e);
 int						set_mov(int keycode, t_env *e);
-int						loop_hook(t_env *e);
-void					movup(t_env *e);
-void					movdown(t_env *e);
+void					movupdown(t_env *e);
 void					movleft(t_env *e);
 void					movright(t_env *e);
 int						init(t_env *e);
@@ -188,7 +213,8 @@ void					raycast(t_env *e);
 void					error(t_env *e, int err);
 void					textures(int x, t_env *e);
 
-char					*ppm_to_array(char *path, t_env *e);
+t_rgb					*ppm_to_array(char *path, t_env *e);
 int						*ppm_to_array2(char *path, t_env *e);
+int						place_hero(t_env *e);
 
 #endif

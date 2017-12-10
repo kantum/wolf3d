@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qdurot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/10 04:34:51 by qdurot            #+#    #+#             */
+/*   Updated: 2017/12/10 04:34:51 by qdurot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 
 void	put_pixel(int x, int y, int color, t_env *e)
@@ -9,7 +21,12 @@ void	put_pixel(int x, int y, int color, t_env *e)
 
 void	draw(t_env *e)
 {
-	e->img = mlx_xpm_file_to_image(e->mlx, e->background, &e->width , &e->height);
+	if (e->img)
+		free(e->img);
+	e->img = mlx_xpm_file_to_image(e->mlx, e->background,
+									&e->width, &e->height);
+	if (e->data)
+		free(e->data);
 	e->data = (int*)mlx_get_data_addr(e->img, &e->bpp, &e->size, &e->endian);
 	raycast(e);
 	if (e->flags & MAP)
@@ -19,7 +36,16 @@ void	draw(t_env *e)
 
 int		quit(t_env *e)
 {
+	int		i;
+
+	i = -1;
 	mlx_destroy_window(e->mlx, e->win);
+	while (++i < NB_TEXTURE)
+		free(e->r.texture[i]);
+	i = -1;
+	while (++i < e->m.height)
+		free(e->m.tab[i]);
+	free(e->m.tab);
 	exit(0);
 }
 
@@ -34,7 +60,7 @@ void	error(t_env *e, int err)
 		ft_putendl_fd("Error oppening file", 2);
 	if (err == PARSE_ERR)
 		ft_putendl_fd("Error parsing map", 2);
-	exit (-1);
+	exit(-1);
 }
 
 int		main(int argc, char **argv)
