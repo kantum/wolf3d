@@ -23,14 +23,18 @@ void	draw(t_env *e)
 {
 	if (e->img)
 		free(e->img);
-	e->img = mlx_xpm_file_to_image(e->mlx, e->background,
-									&e->width, &e->height);
+	if (!(e->img = mlx_xpm_file_to_image(e->mlx, e->background,
+									&e->width, &e->height)))
+		error(e, BG_ERR);
 	if (e->data)
 		free(e->data);
 	e->data = (int*)mlx_get_data_addr(e->img, &e->bpp, &e->size, &e->endian);
 	raycast(e);
 	if (e->flags & MAP)
+	{
 		minimap(e);
+		hero(e);
+	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 
@@ -60,6 +64,10 @@ void	error(t_env *e, int err)
 		ft_putendl_fd("Error oppening file", 2);
 	if (err == PARSE_ERR)
 		ft_putendl_fd("Error parsing map", 2);
+	if (err == MALLOC_ERR)
+		ft_putendl_fd("Mem alloc error", 2);
+	if (err == BG_ERR)
+		ft_putendl_fd("Error loading background", 2);
 	exit(-1);
 }
 

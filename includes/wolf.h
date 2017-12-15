@@ -22,12 +22,14 @@
 
 # define NB_COLOR			6
 
+# define BLACK				0x0
 # define WHITE				0xffffff
 # define RED				0xff0000
 # define GREEN				0x00ff00
 # define BLUE				0x0000ff
 # define LBLUE				0x0f0fff
 # define GOLD				0xffd700
+# define TRANSP				0x80fffff
 
 # define WIDTH				1280
 # define HEIGHT				720
@@ -53,6 +55,8 @@
 # define TEXTURE_ERR		2
 # define OPEN_ERR			3
 # define PARSE_ERR			4
+# define MALLOC_ERR			5
+# define BG_ERR				6
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -110,6 +114,17 @@ typedef struct			s_hero
 	double	speed;
 }						t_hero;
 
+typedef struct s_bres	t_bres;
+struct					s_bres
+{
+	int		dx;
+	int		sx;
+	int		dy;
+	int		sy;
+	int		err;
+	int		e2;
+};
+
 typedef struct			s_map
 {
 	int		fd;
@@ -122,6 +137,7 @@ typedef struct			s_map
 	char	*buf;
 	t_point	*p;
 	int		**tab;
+	t_point	*tab2;
 }						t_map;
 
 typedef struct			s_rcast
@@ -211,9 +227,11 @@ void					dda2(t_env *e);
 void					raycast(t_env *e);
 void					error(t_env *e, int err);
 void					textures(int x, t_env *e);
+void					bresenham(t_point a, t_point b, t_env *e);
 
 t_rgb					*ppm_to_array(char *path, t_env *e);
 int						*ppm_to_array2(char *path, t_env *e);
 int						place_hero(t_env *e);
+void					free_tab(char **tab);
 
 #endif

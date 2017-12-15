@@ -54,6 +54,7 @@ static void	*fill_tab(t_map *m)
 	int		k;
 
 	i = -1;
+	i = m->height;
 	k = -1;
 	if (!(m->tab = (int**)malloc(sizeof(int*) * m->height)))
 		return (NULL);
@@ -61,7 +62,7 @@ static void	*fill_tab(t_map *m)
 	{
 		if (!check_length(m))
 			return (NULL);
-		m->tab[++i] = (int*)malloc((sizeof(int) * m->width));
+		m->tab[--i] = (int*)malloc((sizeof(int) * m->width));
 		while (++k < m->width)
 			m->tab[i][k] = m->buf[k] - '0';
 		k = -1;

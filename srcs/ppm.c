@@ -20,7 +20,8 @@ t_rgb		*ppm_to_array(char *path, t_env *e)
 
 	if (!(fd = open(path, O_RDONLY)))
 		error(e, OPEN_ERR);
-	get_next_line(fd, &line);
+	if (get_next_line(fd, &line) < 1)
+		error(e, TEXTURE_ERR);
 	free(line);
 	get_next_line(fd, &line);
 	while (line[0] == '#')
@@ -50,7 +51,8 @@ int			*ppm_to_array2(char *path, t_env *e)
 	buf = ppm_to_array(path, e);
 	i = -1;
 	k = 0;
-	ret = malloc(sizeof(t_rgba) * (e->file.width * e->file.height));
+	if (!(ret = malloc(sizeof(t_rgba) * (e->file.width * e->file.height))))
+		return (NULL);
 	while (++i < (e->file.width * e->file.height))
 	{
 		ret[i].r = buf[i].b;

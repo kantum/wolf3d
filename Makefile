@@ -2,7 +2,7 @@ NAME = wolf3d
 
 CC = clang
 
-CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 LFLAGS = -Llibft -lft -L$(MINILIB) -lmlx
 
@@ -10,8 +10,8 @@ DIR = srcs
 
 LIB = lib
 
-SRCS = main.c		parse.c	hook.c	move.c	init.c	minimap.c	raycast.c	\
-	   texture.c	ppm.c
+SRCS = main.c	parse.c	hook.c	move.c	minimap.c	raycast.c	\
+	   init.c	texture.c	ppm.c	
 
 
 SRC = $(addprefix $(DIR)/,$(SRCS))

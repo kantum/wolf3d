@@ -54,31 +54,63 @@ int		place_hero(t_env *e)
 	return (1);
 }
 
+void	cross(int x, int y, int color, t_env *e)
+{
+	int start;
+
+	start = -e->m.size / 2;
+	while (++start < e->m.size / 2)
+	{
+		if (y * e->m.size + start >= 0 &&
+				y * e->m.size + start <= e->m.size * e->m.height - e->m.size)
+			put_pixel(y * e->m.size + e->m.offx + start,
+					x * e->m.size + e->m.offy, color, e);
+		if (x * e->m.size + start >= 0 &&
+				x * e->m.size + start <= e->m.size * e->m.width - e->m.size)
+			put_pixel(y * e->m.size + e->m.offx,
+					x * e->m.size + e->m.offy + start, color, e);
+	}
+}
+
+void	color_map(int x, int y, t_env *e)
+{
+	if (e->m.tab[y][x] == 0)
+		cross(x, y, 0x333e62, e);
+	if (e->m.tab[y][x] == 1)
+		cross(x, y, 0xff00ff, e);
+	else if (e->m.tab[y][x] == 2)
+		cross(x, y, 0x00ff00, e);
+	else if (e->m.tab[y][x] >= 3)
+		cross(x, y, 0x0000ff, e);
+	else if (e->m.tab[y][x] == 4)
+		cross(x, y, 0xff0000, e);
+}
+
 void	minimap(t_env *e)
 {
-	int		i;
-	int		k;
+	int		y;
+	int		x;
 
-	i = -1;
-	k = -1;
-	while (++i < e->m.height)
+	y = -1;
+	x = -1;
+	e->m.tab2 = (t_point*)malloc(sizeof(t_point) * e->m.height * e->m.width);
+	while (++y <= e->m.width * e->m.size)
 	{
-		while (++k < e->m.width)
-		{
-			if (e->m.tab[i][k] == 1)
-				put_pixel(i * e->m.size + e->m.offx,
-						k * e->m.size + e->m.offy, 0x00ff00, e);
-			else if (e->m.tab[i][k] == 2)
-				put_pixel(i * e->m.size + e->m.offx,
-						k * e->m.size + e->m.offy, 0x0000ff, e);
-			else if (e->m.tab[i][k] >= 3)
-				put_pixel(i * e->m.size + e->m.offx,
-						k * e->m.size + e->m.offy, 0xff0f0f, e);
-			else if (e->m.tab[i][k] == 4)
-				put_pixel(i * e->m.size + e->m.offx,
-						k * e->m.size + e->m.offy, 0x000fff, e);
-		}
-		k = -1;
+		while (++x <= e->m.height * e->m.size)
+			put_pixel(x + e->m.offx - e->m.size / 2,
+					y + e->m.offy - e->m.size / 2, BLACK, e);
+		x = -1;
 	}
-	hero(e);
+	y = -1;
+	x = -1;
+	while (++y < e->m.height)
+	{
+		while (++x < e->m.width)
+		{
+			e->m.tab2[y * e->m.width + x].x = x * e->m.size + e->m.offx;
+			e->m.tab2[y * e->m.width + x].y = y * e->m.size + e->m.offy;
+			color_map(x, y, e);
+		}
+		x = -1;
+	}
 }

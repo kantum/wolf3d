@@ -16,7 +16,7 @@ void	init_map(t_env *e)
 {
 	e->m.offx = 30;
 	e->m.offy = 30;
-	e->m.size = 5;
+	e->m.size = 8;
 	e->flags ^= MAP;
 }
 
@@ -24,7 +24,7 @@ void	init_hero(t_env *e)
 {
 	e->h.x = 5.0;
 	e->h.y = 11.5;
-	e->h.dir.x = 0.0;
+	e->h.dir.x = -0.0;
 	e->h.dir.y = -1.0;
 	e->h.speed = 0.07;
 }
@@ -72,8 +72,6 @@ int		init(t_env *e)
 		return (-1);
 	e->win = mlx_new_window(e->mlx, WIDTH, HEIGHT, title);
 	e->img = mlx_new_image(e->mlx, WIDTH, HEIGHT);
-	e->img2 = mlx_xpm_file_to_image(e->mlx, e->background,
-									&e->width, &e->height);
 	e->background = "./images/background/fond1.xpm";
 	init_hero(e);
 	init_map(e);
