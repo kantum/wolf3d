@@ -34,7 +34,6 @@
 # define WIDTH				1280
 # define HEIGHT				720
 # define MOVSPEED			0.07
-# define ROTSPEED			0.10
 
 # define MOVUP				1<<0
 # define MOVDOWN			1<<1
@@ -112,6 +111,7 @@ typedef struct			s_hero
 	t_vect	dir;
 	short	mov;
 	double	speed;
+	double	rotspeed;
 }						t_hero;
 
 typedef struct s_bres	t_bres;
@@ -198,6 +198,7 @@ typedef struct			s_env
 	t_vect	plane;
 	double	time;
 	double	oldtime;
+	double	frametime;
 	int		flags;
 	char	*background;
 

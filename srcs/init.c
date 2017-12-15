@@ -16,7 +16,7 @@ void	init_map(t_env *e)
 {
 	e->m.offx = 30;
 	e->m.offy = 30;
-	e->m.size = 8;
+	e->m.size = 5;
 	e->flags ^= MAP;
 }
 

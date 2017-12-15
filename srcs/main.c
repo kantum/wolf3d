@@ -21,6 +21,9 @@ void	put_pixel(int x, int y, int color, t_env *e)
 
 void	draw(t_env *e)
 {
+	e->oldtime = e->time;
+	e->time = clock();
+	e->frametime = (e->time - e->oldtime) / 10000.0;
 	if (e->img)
 		free(e->img);
 	if (!(e->img = mlx_xpm_file_to_image(e->mlx, e->background,
@@ -36,6 +39,7 @@ void	draw(t_env *e)
 		hero(e);
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	e->h.rotspeed = e->frametime * 0.03;
 }
 
 int		quit(t_env *e)

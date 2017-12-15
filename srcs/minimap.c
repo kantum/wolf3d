@@ -54,36 +54,34 @@ int		place_hero(t_env *e)
 	return (1);
 }
 
-void	cross(int x, int y, int color, t_env *e)
+void	block(int x, int y, int color, t_env *e)
 {
-	int start;
+	int		i;
+	int		k;
 
-	start = -e->m.size / 2;
-	while (++start < e->m.size / 2)
+	i = -1;
+	k = -1;
+	while (++i < e->m.size)
 	{
-		if (y * e->m.size + start >= 0 &&
-				y * e->m.size + start <= e->m.size * e->m.height - e->m.size)
-			put_pixel(y * e->m.size + e->m.offx + start,
-					x * e->m.size + e->m.offy, color, e);
-		if (x * e->m.size + start >= 0 &&
-				x * e->m.size + start <= e->m.size * e->m.width - e->m.size)
-			put_pixel(y * e->m.size + e->m.offx,
-					x * e->m.size + e->m.offy + start, color, e);
+		while (++k < e->m.size)
+			put_pixel(y * e->m.size + e->m.offx + i,
+					x * e->m.size + e->m.offy + k, color, e);
+		k = -1;
 	}
 }
 
 void	color_map(int x, int y, t_env *e)
 {
 	if (e->m.tab[y][x] == 0)
-		cross(x, y, 0x333e62, e);
+		block(x, y, 0x333e62, e);
 	if (e->m.tab[y][x] == 1)
-		cross(x, y, 0xff00ff, e);
+		block(x, y, 0x828E96, e);
 	else if (e->m.tab[y][x] == 2)
-		cross(x, y, 0x00ff00, e);
+		block(x, y, 0x249D22, e);
 	else if (e->m.tab[y][x] >= 3)
-		cross(x, y, 0x0000ff, e);
+		block(x, y, 0x8D4DB2, e);
 	else if (e->m.tab[y][x] == 4)
-		cross(x, y, 0xff0000, e);
+		block(x, y, 0xff0000, e);
 }
 
 void	minimap(t_env *e)
@@ -94,15 +92,6 @@ void	minimap(t_env *e)
 	y = -1;
 	x = -1;
 	e->m.tab2 = (t_point*)malloc(sizeof(t_point) * e->m.height * e->m.width);
-	while (++y <= e->m.width * e->m.size)
-	{
-		while (++x <= e->m.height * e->m.size)
-			put_pixel(x + e->m.offx - e->m.size / 2,
-					y + e->m.offy - e->m.size / 2, BLACK, e);
-		x = -1;
-	}
-	y = -1;
-	x = -1;
 	while (++y < e->m.height)
 	{
 		while (++x < e->m.width)

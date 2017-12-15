@@ -37,10 +37,11 @@ void	movupdown(t_env *e)
 	}
 	if (e->h.mov & MOVUP)
 	{
-		if ((!(e->m.tab[(int)(e->h.x + e->h.dir.x * e->h.speed)]
+		if ((!(e->m.tab[(int)(e->h.x + (e->h.dir.x * 3) * e->h.speed)]
 			[(int)e->h.y])))
 			e->h.x += e->h.dir.x * e->h.speed;
-		if (!(e->m.tab[(int)e->h.x][(int)(e->h.y + e->h.dir.y * e->h.speed)]))
+		if (!(e->m.tab[(int)e->h.x]
+					[(int)(e->h.y + (e->h.dir.y * 3) * e->h.speed)]))
 			e->h.y += e->h.dir.y * e->h.speed;
 	}
 }
@@ -53,11 +54,15 @@ void	movleft(t_env *e)
 	if (e->h.mov & MOVLEFT)
 	{
 		oldirx = e->h.dir.x;
-		e->h.dir.x = e->h.dir.x * cos(-ROTSPEED) - e->h.dir.y * sin(-ROTSPEED);
-		e->h.dir.y = oldirx * sin(-ROTSPEED) + e->h.dir.y * cos(-ROTSPEED);
+		e->h.dir.x = e->h.dir.x * cos(-e->h.rotspeed) -
+			e->h.dir.y * sin(-e->h.rotspeed);
+		e->h.dir.y = oldirx * sin(-e->h.rotspeed) +
+			e->h.dir.y * cos(-e->h.rotspeed);
 		oldplanex = e->plane.x;
-		e->plane.x = e->plane.x * cos(-ROTSPEED) - e->plane.y * sin(-ROTSPEED);
-		e->plane.y = oldplanex * sin(-ROTSPEED) + e->plane.y * cos(-ROTSPEED);
+		e->plane.x = e->plane.x * cos(-e->h.rotspeed) -
+			e->plane.y * sin(-e->h.rotspeed);
+		e->plane.y = oldplanex * sin(-e->h.rotspeed) +
+			e->plane.y * cos(-e->h.rotspeed);
 	}
 }
 
@@ -69,11 +74,15 @@ void	movright(t_env *e)
 	if (e->h.mov & MOVRIGHT)
 	{
 		oldirx = e->h.dir.x;
-		e->h.dir.x = e->h.dir.x * cos(ROTSPEED) - e->h.dir.y * sin(ROTSPEED);
-		e->h.dir.y = oldirx * sin(ROTSPEED) + e->h.dir.y * cos(ROTSPEED);
+		e->h.dir.x = e->h.dir.x * cos(e->h.rotspeed) -
+			e->h.dir.y * sin(e->h.rotspeed);
+		e->h.dir.y = oldirx * sin(e->h.rotspeed) +
+			e->h.dir.y * cos(e->h.rotspeed);
 		oldplanex = e->plane.x;
-		e->plane.x = e->plane.x * cos(ROTSPEED) - e->plane.y * sin(ROTSPEED);
-		e->plane.y = oldplanex * sin(ROTSPEED) + e->plane.y * cos(ROTSPEED);
+		e->plane.x = e->plane.x * cos(e->h.rotspeed) -
+			e->plane.y * sin(e->h.rotspeed);
+		e->plane.y = oldplanex * sin(e->h.rotspeed) +
+			e->plane.y * cos(e->h.rotspeed);
 	}
 }
 

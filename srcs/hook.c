@@ -48,6 +48,8 @@ int		key_press(int keycode, t_env *e)
 		e->background = "./images/background/fond3.xpm";
 	if (keycode == KEY_4)
 		e->background = "./images/background/fond4.xpm";
+	if (keycode == KEY_5)
+		e->background = "./images/background/fond5.xpm";
 	return (0);
 }
 
