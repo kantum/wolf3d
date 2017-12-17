@@ -47,6 +47,7 @@ void	load_texture(t_env *e)
 {
 	int		i;
 	char	*str;
+	char	*tmp;
 
 	i = -1;
 	while (++i < NB_TEXTURE)
@@ -54,7 +55,9 @@ void	load_texture(t_env *e)
 		str = malloc(sizeof(char*) * 1024);
 		ft_bzero(str, 1024);
 		ft_strcat(str, "./images/env1/tex");
-		ft_strcat(str, ft_itoa(i));
+		tmp = ft_itoa(i);
+		ft_strcat(str, tmp);
+		free(tmp);
 		ft_strcat(str, ".ppm");
 		if (!(e->r.texture[i] = ppm_to_array2(str, e)))
 			error(e, TEXTURE_ERR);
@@ -72,7 +75,6 @@ int		init(t_env *e)
 		return (-1);
 	e->win = mlx_new_window(e->mlx, WIDTH, HEIGHT, title);
 	e->img = mlx_new_image(e->mlx, WIDTH, HEIGHT);
-	e->data = NULL;
 	e->background = "./images/background/fond1.xpm";
 	init_hero(e);
 	init_map(e);

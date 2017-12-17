@@ -102,4 +102,5 @@ void	minimap(t_env *e)
 		}
 		x = -1;
 	}
+	free(e->m.tab2);
 }

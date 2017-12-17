@@ -2,7 +2,7 @@ NAME = wolf3d
 
 CC = clang
 
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
 
 LFLAGS = -Llibft -lft -L$(MINILIB) -lmlx
 
@@ -23,14 +23,14 @@ LIBINC = libft/includes
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ) Makefile
+$(NAME): $(LIB) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME) $(ADDS)
 
 $(LIB): $(MINILIB)
 	@make -C libft
 	@make -C $(MINILIB)
 
-$(OBJ): $(SRC) $(INC)
+$(OBJ): $(SRC) $(INC) Makefile
 	@$(CC) $(CFLAGS) -c $(SRC) -I $(INC) -I $(LIBINC) -I $(MINILIB)
 
 MINILIB: $(UNAME_S)

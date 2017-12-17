@@ -53,19 +53,17 @@ static void	*fill_tab(t_map *m)
 	int		i;
 	int		k;
 
-	i = -1;
 	i = m->height;
-	k = -1;
 	if (!(m->tab = (int**)malloc(sizeof(int*) * m->height)))
 		return (NULL);
 	while (get_next_line(m->fd, &m->buf))
 	{
+		k = -1;
 		if (!check_length(m))
 			return (NULL);
 		m->tab[--i] = (int*)malloc((sizeof(int) * m->width));
 		while (++k < m->width)
 			m->tab[i][k] = m->buf[k] - '0';
-		k = -1;
 		free(m->buf);
 	}
 	close(m->fd);
