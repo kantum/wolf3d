@@ -72,6 +72,7 @@ int		init(t_env *e)
 		return (-1);
 	e->win = mlx_new_window(e->mlx, WIDTH, HEIGHT, title);
 	e->img = mlx_new_image(e->mlx, WIDTH, HEIGHT);
+	e->data = NULL;
 	e->background = "./images/background/fond1.xpm";
 	init_hero(e);
 	init_map(e);

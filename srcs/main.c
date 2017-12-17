@@ -29,8 +29,8 @@ void	draw(t_env *e)
 	if (!(e->img = mlx_xpm_file_to_image(e->mlx, e->background,
 									&e->width, &e->height)))
 		error(e, BG_ERR);
-	if (e->data)
-		free(e->data);
+	//if (e->data)
+		//free(e->data);
 	e->data = (int*)mlx_get_data_addr(e->img, &e->bpp, &e->size, &e->endian);
 	raycast(e);
 	if (e->flags & MAP)

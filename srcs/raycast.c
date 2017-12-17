@@ -68,11 +68,9 @@ void	dda2(t_env *e)
 void	vertline(int x, t_env *e)
 {
 	int	y;
-	int	i;
 	int	col;
 
 	y = 0;
-	i = 0;
 	(void)col;
 	y = e->r.drawstart;
 	while (y < e->r.drawend)

@@ -31,7 +31,7 @@ t_rgb		*ppm_to_array(char *path, t_env *e)
 	}
 	i = 0;
 	e->file.width = ft_atoi(&line[i]);
-	while (ft_isdigit((int)&line[i]))
+	while (ft_isdigit(line[i]))
 		i++;
 	e->file.height = ft_atoi(&line[i]);
 	free(line);
@@ -46,11 +46,9 @@ int			*ppm_to_array2(char *path, t_env *e)
 	t_rgb	*buf;
 	t_rgba	*ret;
 	int		i;
-	int		k;
 
 	buf = ppm_to_array(path, e);
 	i = -1;
-	k = 0;
 	if (!(ret = malloc(sizeof(t_rgba) * (e->file.width * e->file.height))))
 		return (NULL);
 	while (++i < (e->file.width * e->file.height))
