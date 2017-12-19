@@ -76,6 +76,8 @@ int		init(t_env *e)
 	e->win = mlx_new_window(e->mlx, WIDTH, HEIGHT, title);
 	e->img = mlx_new_image(e->mlx, WIDTH, HEIGHT);
 	e->background = "./images/background/fond1.xpm";
+	e->h.gun = "./images/weapons/gun1.xpm";
+	e->h.weapon = GUN_1;
 	init_hero(e);
 	init_map(e);
 	load_texture(e);

@@ -12,6 +12,24 @@
 
 #include "wolf.h"
 
+void	background(int keycode, t_env *e)
+{
+	if (keycode == KEY_0)
+		e->background = "./images/background/fond.xpm";
+	if (keycode == KEY_1)
+		e->background = "./images/background/fond1.xpm";
+	if (keycode == KEY_2)
+		e->background = "./images/background/fond2.xpm";
+	if (keycode == KEY_3)
+		e->background = "./images/background/fond3.xpm";
+	if (keycode == KEY_4)
+		e->background = "./images/background/fond4.xpm";
+	if (keycode == KEY_5)
+		e->background = "./images/background/fond5.xpm";
+	if (keycode == KEY_6)
+		e->background = "./images/background/fond6.xpm";
+}
+
 void	textures(int x, t_env *e)
 {
 	int			y;

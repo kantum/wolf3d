@@ -45,6 +45,11 @@
 # define RADAR				1<<2
 # define FAST				1<<3
 
+# define GUN_1				1<<0
+# define GUN_2				1<<1
+# define GUN_3				1<<2
+# define GUN_4				1<<3
+
 # define NB_TEXTURE			9
 # define TEXWIDTH			128
 # define TEXHEIGHT			128
@@ -56,6 +61,7 @@
 # define PARSE_ERR			4
 # define MALLOC_ERR			5
 # define BG_ERR				6
+# define GUN_ERR			7
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -112,18 +118,10 @@ typedef struct			s_hero
 	short	mov;
 	double	speed;
 	double	rotspeed;
+	char	*gun;
+	char	*imgun;
+	int		weapon;
 }						t_hero;
-
-typedef struct s_bres	t_bres;
-struct					s_bres
-{
-	int		dx;
-	int		sx;
-	int		dy;
-	int		sy;
-	int		err;
-	int		e2;
-};
 
 typedef struct			s_map
 {
@@ -234,5 +232,9 @@ t_rgb					*ppm_to_array(char *path, t_env *e);
 int						*ppm_to_array2(char *path, t_env *e);
 int						place_hero(t_env *e);
 void					free_tab(char **tab);
+void					weapon(t_env *e);
+void					change_weapon(t_env *e);
+void					background(int keycode, t_env *e);
+void					shot(t_env *e);
 
 #endif

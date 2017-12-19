@@ -38,18 +38,12 @@ int		key_press(int keycode, t_env *e)
 		e->flags ^= MAP;
 	if (keycode == KEY_SHIFT_LEFT)
 		e->flags ^= FAST;
-	if (keycode == KEY_0)
-		e->background = "./images/background/fond.xpm";
-	if (keycode == KEY_1)
-		e->background = "./images/background/fond1.xpm";
-	if (keycode == KEY_2)
-		e->background = "./images/background/fond2.xpm";
-	if (keycode == KEY_3)
-		e->background = "./images/background/fond3.xpm";
-	if (keycode == KEY_4)
-		e->background = "./images/background/fond4.xpm";
-	if (keycode == KEY_5)
-		e->background = "./images/background/fond5.xpm";
+	if (keycode == KEY_0 || keycode == KEY_1 || keycode == KEY_2 ||
+		keycode == KEY_3 || keycode == KEY_4 || keycode == KEY_5 ||
+		keycode == KEY_6 || keycode == KEY_7 || keycode == KEY_8)
+		background(keycode, e);
+	if (keycode == KEY_SPACEBAR)
+		shot(e);
 	return (0);
 }
 

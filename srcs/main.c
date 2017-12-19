@@ -26,17 +26,16 @@ void	draw(t_env *e)
 	e->frametime = (e->time - e->oldtime) / 10000.0;
 	if (e->img)
 		mlx_destroy_image(e->mlx, e->img);
-	if (!(e->img = mlx_xpm_file_to_image(e->mlx, e->background,
-									&e->width, &e->height)))
+	if (!(e->img = mlx_xpm_file_to_image(e->mlx,
+					e->background, &e->width, &e->height)))
 		error(e, BG_ERR);
 	e->data = (int*)mlx_get_data_addr(e->img, &e->bpp, &e->size, &e->endian);
 	raycast(e);
 	if (e->flags & MAP)
-	{
 		minimap(e);
-		hero(e);
-	}
+	weapon(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	mlx_put_image_to_window(e->mlx, e->win, e->h.imgun, 0, 0);
 	e->h.rotspeed = e->frametime * 0.03;
 }
 
@@ -70,6 +69,8 @@ void	error(t_env *e, int err)
 		ft_putendl_fd("Mem alloc error", 2);
 	if (err == BG_ERR)
 		ft_putendl_fd("Error loading background", 2);
+	if (err == GUN_ERR)
+		ft_putendl_fd("Error loading weapon", 2);
 	exit(-1);
 }
 
