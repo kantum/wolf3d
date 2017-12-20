@@ -17,7 +17,7 @@ SRC = $(addprefix $(DIR)/,$(SRCS))
 
 OBJ = $(SRCS:.c=.o)
 
-INC = includes 
+INC = includes
 LIBINC = libft/includes
 
 all: $(NAME)

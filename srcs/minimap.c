@@ -77,11 +77,21 @@ void	color_map(int x, int y, t_env *e)
 	if (e->m.tab[y][x] == 1)
 		block(x, y, 0x828E96, e);
 	else if (e->m.tab[y][x] == 2)
-		block(x, y, 0x249D22, e);
-	else if (e->m.tab[y][x] >= 3)
-		block(x, y, 0x8D4DB2, e);
+		block(x, y, 0xffb847, e);
+	else if (e->m.tab[y][x] == 3)
+		block(x, y, 0x828E96, e);
 	else if (e->m.tab[y][x] == 4)
-		block(x, y, 0xff0000, e);
+		block(x, y, 0x48dc64, e);
+	else if (e->m.tab[y][x] == 5)
+		block(x, y, 0x6e707d, e);
+	else if (e->m.tab[y][x] == 6)
+		block(x, y, 0x633d89, e);
+	else if (e->m.tab[y][x] == 7)
+		block(x, y, 0x319030, e);
+	else if (e->m.tab[y][x] == 8)
+		block(x, y, 0xb2199f, e);
+	else if (e->m.tab[y][x] == 9)
+		block(x, y, 0xfdff84, e);
 }
 
 void	minimap(t_env *e)

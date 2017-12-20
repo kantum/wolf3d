@@ -44,11 +44,18 @@ void	shot(t_env *e)
 	{
 		e->h.gun = "./images/weapons/gun1.xpm";
 		e->h.weapon = GUN_2;
-	ft_putstr("shot\n");
+		draw(e);
 	}
 	else if (e->h.weapon == GUN_2)
 	{
 		e->h.gun = "./images/weapons/gun2.xpm";
+		e->h.weapon = GUN_3;
+		draw(e);
+	}
+	else if (e->h.weapon == GUN_3)
+	{
+		e->h.gun = "./images/weapons/gun3.xpm";
 		e->h.weapon = GUN_1;
+		draw(e);
 	}
 }
