@@ -47,7 +47,7 @@ t_rgb		*ppm_to_array2(char *path, t_env *e)
 
 	fd = ppm_to_array3(path, e);
 	if (!(line = malloc(e->file.width * e->file.height * 3)))
-		error(e, TEXTURE_ERR);
+		error(e, PPM_ERR);
 	read(fd, line, e->file.width * e->file.height * 3);
 	close(fd);
 	return ((t_rgb*)line);
