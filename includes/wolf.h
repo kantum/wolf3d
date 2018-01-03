@@ -62,6 +62,7 @@
 # define MALLOC_ERR			5
 # define BG_ERR				6
 # define GUN_ERR			7
+# define PPM_ERR			8
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -228,8 +229,8 @@ void					error(t_env *e, int err);
 void					textures(int x, t_env *e);
 void					bresenham(t_point a, t_point b, t_env *e);
 
-t_rgb					*ppm_to_array(char *path, t_env *e);
-int						*ppm_to_array2(char *path, t_env *e);
+t_rgb					*ppm_to_array2(char *path, t_env *e);
+int						*ppm_to_array(char *path, t_env *e);
 int						place_hero(t_env *e);
 void					free_tab(char **tab);
 void					weapon(t_env *e);

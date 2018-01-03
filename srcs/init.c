@@ -59,7 +59,7 @@ void	load_texture(t_env *e)
 		ft_strcat(str, tmp);
 		free(tmp);
 		ft_strcat(str, ".ppm");
-		if (!(e->r.texture[i] = ppm_to_array2(str, e)))
+		if (!(e->r.texture[i] = ppm_to_array(str, e)))
 			error(e, TEXTURE_ERR);
 		ft_bzero(str, 1024);
 		free(str);

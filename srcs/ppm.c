@@ -12,10 +12,10 @@
 
 #include "wolf.h"
 
-t_rgb		*ppm_to_array(char *path, t_env *e)
+int			ppm_to_array3(char *path, t_env *e)
 {
-	int		fd;
 	int		i;
+	int		fd;
 	char	*line;
 
 	if (!(fd = open(path, O_RDONLY)))
@@ -37,17 +37,29 @@ t_rgb		*ppm_to_array(char *path, t_env *e)
 	free(line);
 	get_next_line(fd, &line);
 	free(line);
-	get_next_line(fd, &line);
+	return (fd);
+}
+
+t_rgb		*ppm_to_array2(char *path, t_env *e)
+{
+	int		fd;
+	char	*line;
+
+	fd = ppm_to_array3(path, e);
+	if (!(line = malloc(e->file.width * e->file.height * 3)))
+		error(e, TEXTURE_ERR);
+	read(fd, line, e->file.width * e->file.height * 3);
+	close(fd);
 	return ((t_rgb*)line);
 }
 
-int			*ppm_to_array2(char *path, t_env *e)
+int			*ppm_to_array(char *path, t_env *e)
 {
 	t_rgb	*buf;
 	t_rgba	*ret;
 	int		i;
 
-	buf = ppm_to_array(path, e);
+	buf = ppm_to_array2(path, e);
 	i = -1;
 	if (!(ret = malloc(sizeof(t_rgba) * (e->file.width * e->file.height))))
 		return (NULL);

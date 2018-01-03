@@ -71,6 +71,8 @@ void	error(t_env *e, int err)
 		ft_putendl_fd("Error loading background", 2);
 	if (err == GUN_ERR)
 		ft_putendl_fd("Error loading weapon", 2);
+	if (err == PPM_ERR)
+		ft_putendl_fd("Error loading ppm", 2);
 	exit(-1);
 }
 
