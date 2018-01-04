@@ -28,6 +28,8 @@ void	background(int keycode, t_env *e)
 		e->background = "./images/background/fond5.xpm";
 	if (keycode == KEY_6)
 		e->background = "./images/background/fond6.xpm";
+	if (keycode == KEY_7)
+		e->background = "./images/background/fond7.xpm";
 }
 
 void	textures(int x, t_env *e)
@@ -45,16 +47,15 @@ void	textures(int x, t_env *e)
 	e->r.texx = (int)(e->r.wallx * (double)(TEXWIDTH));
 	if ((e->r.side == 0 && e->r.dirx > 0) || (e->r.side == 1 && e->r.diry < 0))
 		e->r.texx = TEXWIDTH - e->r.texx - 1;
-	y = e->r.drawstart;
-	while (y < e->r.drawend)
+	y = e->r.drawstart - 1;
+	while (++y < e->r.drawend)
 	{
-		d = y * 256 - HEIGHT * 128 + e->r.lineh * 128;
-		e->r.texy = ((d * TEXHEIGHT) / e->r.lineh) / 256;
+		d = y * 128 - HEIGHT * 64 + e->r.lineh * 64;
+		e->r.texy = ((d * TEXHEIGHT) / e->r.lineh) / 128;
 		col = e->r.texture[e->r.texnum]
 			[TEXWIDTH * e->r.texy + e->r.texx];
 		if (e->r.side == 1)
 			col = (col >> 1) & 8355711;
 		put_pixel(x, y, col, e);
-		y++;
 	}
 }

@@ -35,12 +35,6 @@ void	init_raycast(t_env *e)
 	e->plane.y = 0.0;
 	e->time = 0;
 	e->oldtime = 0;
-	e->r.color[0] = WHITE;
-	e->r.color[1] = RED;
-	e->r.color[2] = GREEN;
-	e->r.color[3] = BLUE;
-	e->r.color[4] = LBLUE;
-	e->r.color[5] = GOLD;
 }
 
 void	load_texture(t_env *e)

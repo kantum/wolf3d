@@ -31,11 +31,6 @@ void	weapon(t_env *e)
 	}
 }
 
-void	change_weapon(t_env *e)
-{
-	(void)e;
-}
-
 void	shot(t_env *e)
 {
 	mlx_destroy_image(e->mlx, e->h.imgun);
@@ -44,18 +39,16 @@ void	shot(t_env *e)
 	{
 		e->h.gun = "./images/weapons/gun1.xpm";
 		e->h.weapon = GUN_2;
-		draw(e);
 	}
 	else if (e->h.weapon == GUN_2)
 	{
 		e->h.gun = "./images/weapons/gun2.xpm";
 		e->h.weapon = GUN_3;
-		draw(e);
 	}
 	else if (e->h.weapon == GUN_3)
 	{
 		e->h.gun = "./images/weapons/gun3.xpm";
 		e->h.weapon = GUN_1;
-		draw(e);
 	}
+	draw(e);
 }

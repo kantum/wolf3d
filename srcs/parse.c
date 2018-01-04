@@ -33,11 +33,9 @@ static void	*scan_input(t_map *m)
 	m->buf = ft_strnew(0);
 	while ((ret = read(m->fd, rd, BUFF_SIZE)))
 	{
-		if (ret < 0)
-			exit(-1);
 		rd[ret] = '\0';
 		f_ptr = m->buf;
-		if (!(m->buf = ft_strjoin(m->buf, rd)) || ret < 0)
+		if (!(m->buf = ft_strjoin(m->buf, rd)) || !ft_isascii(rd[0]) || ret < 0)
 			return (NULL);
 		free(f_ptr);
 	}

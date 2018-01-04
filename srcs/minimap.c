@@ -100,17 +100,16 @@ void	minimap(t_env *e)
 	int		x;
 
 	y = -1;
-	x = -1;
 	e->m.tab2 = (t_point*)malloc(sizeof(t_point) * e->m.height * e->m.width);
 	while (++y < e->m.height)
 	{
+		x = -1;
 		while (++x < e->m.width)
 		{
 			e->m.tab2[y * e->m.width + x].x = x * e->m.size + e->m.offx;
 			e->m.tab2[y * e->m.width + x].y = y * e->m.size + e->m.offy;
 			color_map(x, y, e);
 		}
-		x = -1;
 	}
 	free(e->m.tab2);
 	hero(e);

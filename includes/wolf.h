@@ -22,15 +22,6 @@
 
 # define NB_COLOR			6
 
-# define BLACK				0x0
-# define WHITE				0xffffff
-# define RED				0xff0000
-# define GREEN				0x00ff00
-# define BLUE				0x0000ff
-# define LBLUE				0x0f0fff
-# define GOLD				0xffd700
-# define TRANSP				0x80fffff
-
 # define WIDTH				1280
 # define HEIGHT				720
 # define MOVSPEED			0.07
@@ -48,12 +39,10 @@
 # define GUN_1				1<<0
 # define GUN_2				1<<1
 # define GUN_3				1<<2
-# define GUN_4				1<<3
 
 # define NB_TEXTURE			9
-# define TEXWIDTH			128
-# define TEXHEIGHT			128
-# define MAX_IMG_SIZE		20000
+# define TEXWIDTH			512
+# define TEXHEIGHT			512
 
 # define NO_ARG				1
 # define TEXTURE_ERR		2
@@ -131,7 +120,6 @@ typedef struct			s_map
 	int		height;
 	int		offx;
 	int		offy;
-	int		zoom;
 	int		size;
 	char	*buf;
 	t_point	*p;
@@ -161,7 +149,6 @@ typedef struct			s_rcast
 	int			drawstart;
 	int			drawend;
 	int			color[NB_COLOR];
-
 	int			texnum;
 	int			texsize;
 	int			texbpp;
@@ -228,7 +215,6 @@ void					raycast(t_env *e);
 void					error(t_env *e, int err);
 void					textures(int x, t_env *e);
 void					bresenham(t_point a, t_point b, t_env *e);
-
 t_rgb					*ppm_to_array2(char *path, t_env *e);
 int						*ppm_to_array(char *path, t_env *e);
 int						place_hero(t_env *e);
