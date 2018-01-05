@@ -49,6 +49,9 @@ ifeq ($(UNAME_S),Darwin)
 	ifneq ($(filter 16%, $(UNAME_R)),)
 		MINILIB = minilibx_macos_sierra
 	endif
+	ifneq ($(filter 17%, $(UNAME_R)),)
+		MINILIB = minilibx_macos_sierra
+	endif
 endif
 
 clean:
