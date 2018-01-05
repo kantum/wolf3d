@@ -22,3 +22,24 @@ make
 ### for windows users
 
 ```LOL```
+
+## use
+
+```
+./wolf3d [path to map]
+```
+
+## maps
+you can create your own map with any text editor
+
+### example
+```
+11111111
+10000001
+10203001
+10000001
+10040001
+10000001
+10500601
+11111111
+```
