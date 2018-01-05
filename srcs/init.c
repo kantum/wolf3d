@@ -27,6 +27,7 @@ void	init_hero(t_env *e)
 	e->h.dir.x = -0.0;
 	e->h.dir.y = -1.0;
 	e->h.speed = 0.07;
+	e->h.mov = 0;
 }
 
 void	init_raycast(t_env *e)
