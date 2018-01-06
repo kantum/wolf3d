@@ -1,5 +1,7 @@
 # Little game
 
+![screenshot](https://github.com/vimman/wolf3d/raw/master/images/screenshot.png)
+
 ## install
 
 ### for linux users (real ones)
