@@ -25,19 +25,19 @@ int		key_press(int keycode, t_env *e)
 	else if (keycode == KEY_DOWN || keycode == KEY_UP ||
 			keycode == KEY_LEFT || keycode == KEY_RIGHT)
 		set_mov(keycode, e);
-	if (keycode == KEY_M)
+	else if (keycode == KEY_M)
 		e->flags ^= MAP;
-	if (keycode == KEY_SHIFT_LEFT)
+	else if (keycode == KEY_SHIFT_LEFT)
 		e->flags ^= FAST;
-	if (keycode == KEY_0 || keycode == KEY_1 || keycode == KEY_2 ||
+	else if (keycode == KEY_0 || keycode == KEY_1 || keycode == KEY_2 ||
 		keycode == KEY_3 || keycode == KEY_4 || keycode == KEY_5 ||
 		keycode == KEY_6 || keycode == KEY_7 || keycode == KEY_8)
 		background(keycode, e);
-	if (keycode == KEY_SPACEBAR)
+	else if (keycode == KEY_SPACEBAR)
 		shot(e);
-	if (keycode == KEY_MINUS)
+	else if (keycode == KEY_MINUS)
 		e->m.size--;
-	if (keycode == KEY_EQUAL)
+	else if (keycode == KEY_EQUAL)
 		e->m.size++;
 	return (0);
 }

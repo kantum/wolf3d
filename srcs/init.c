@@ -17,7 +17,7 @@ void	init_map(t_env *e)
 	e->m.offx = 30;
 	e->m.offy = 30;
 	e->m.size = 5;
-	e->flags ^= MAP;
+	e->flags = MAP;
 }
 
 void	init_hero(t_env *e)
@@ -28,6 +28,7 @@ void	init_hero(t_env *e)
 	e->h.dir.y = -1.0;
 	e->h.speed = 0.07;
 	e->h.mov = 0;
+	e->h.imgun = NULL;
 }
 
 void	init_raycast(t_env *e)
