@@ -19,32 +19,32 @@ void	hero(t_env *e)
 	size = -3;
 	while (++size < 3)
 	{
-		put_pixel(e->h.x * e->m.size + e->m.offx + size,
-				e->h.y * e->m.size + e->m.offy, 0xff66cc, e);
-		put_pixel(e->h.x * e->m.size + e->m.offx,
-				e->h.y * e->m.size + e->m.offy + size, 0xff66cc, e);
+		put_pixel(e->h.y * e->m.size + e->m.offx + size,
+				e->h.x * e->m.size + e->m.offy, 0xff66cc, e);
+		put_pixel(e->h.y * e->m.size + e->m.offx,
+				e->h.x * e->m.size + e->m.offy + size, 0xff66cc, e);
 	}
 }
 
 int		place_hero(t_env *e)
 {
-	int	i;
-	int	k;
+	int	x;
+	int	y;
 
-	i = -1;
-	while (++i < e->m.height)
+	x = -1;
+	while (++x < e->m.height)
 	{
-		k = -1;
-		while (++k < e->m.width)
+		y = -1;
+		while (++y < e->m.width)
 		{
-			if (e->m.tab[i][k] < 0 || e->m.tab[i][k] > 9)
+			if (e->m.tab[x][y] < 0 || e->m.tab[x][y] > 9)
 			{
-				if ((e->m.tab[i][k] == 'x' - '0') ||
-					(e->m.tab[i][k] == 'X' - '0'))
+				if ((e->m.tab[x][y] == 'x' - '0') ||
+					(e->m.tab[x][y] == 'X' - '0'))
 				{
-					e->h.x = i + 0.5;
-					e->h.y = k + 0.5;
-					e->m.tab[i][k] = 0;
+					e->h.x = x + 0.5;
+					e->h.y = y + 0.5;
+					e->m.tab[x][y] = 0;
 				}
 				else
 					return (0);
@@ -60,13 +60,12 @@ void	block(int x, int y, int color, t_env *e)
 	int		k;
 
 	i = -1;
-	k = -1;
 	while (++i < e->m.size)
 	{
-		while (++k < e->m.size)
-			put_pixel(y * e->m.size + e->m.offx + i,
-					x * e->m.size + e->m.offy + k, color, e);
 		k = -1;
+		while (++k < e->m.size)
+			put_pixel(x * e->m.size + e->m.offx + i,
+					y * e->m.size + e->m.offy + k, color, e);
 	}
 }
 
@@ -96,21 +95,15 @@ void	color_map(int x, int y, t_env *e)
 
 void	minimap(t_env *e)
 {
-	int		y;
 	int		x;
+	int		y;
 
-	y = -1;
-	e->m.tab2 = (t_point*)malloc(sizeof(t_point) * e->m.height * e->m.width);
-	while (++y < e->m.height)
+	x = -1;
+	while (++x < e->m.width)
 	{
-		x = -1;
-		while (++x < e->m.width)
-		{
-			e->m.tab2[y * e->m.width + x].x = x * e->m.size + e->m.offx;
-			e->m.tab2[y * e->m.width + x].y = y * e->m.size + e->m.offy;
+		y = -1;
+		while (++y < e->m.height)
 			color_map(x, y, e);
-		}
 	}
-	free(e->m.tab2);
 	hero(e);
 }

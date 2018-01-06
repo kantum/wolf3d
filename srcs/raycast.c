@@ -65,24 +65,6 @@ void	dda2(t_env *e)
 			/ e->r.diry;
 }
 
-void	vertline(int x, t_env *e)
-{
-	int	y;
-	int	col;
-
-	y = 0;
-	(void)col;
-	y = e->r.drawstart;
-	while (y < e->r.drawend)
-	{
-		col = e->r.color[e->m.tab[e->r.mapx][e->r.mapy]];
-		if (e->r.side == 0)
-			col = col / 2;
-		put_pixel(x, y, col, e);
-		y++;
-	}
-}
-
 void	walls(t_env *e)
 {
 	e->r.lineh = (int)(HEIGHT / e->r.walldist);

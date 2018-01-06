@@ -48,20 +48,20 @@ static void	*scan_input(t_map *m)
 
 static void	*fill_tab(t_map *m)
 {
-	int		i;
-	int		k;
+	int		y;
+	int		x;
 
-	i = m->height;
+	y = m->height;
 	if (!(m->tab = (int**)malloc(sizeof(int*) * m->height)))
 		return (NULL);
 	while (get_next_line(m->fd, &m->buf))
 	{
-		k = -1;
+		x = -1;
 		if (!check_length(m))
 			return (NULL);
-		m->tab[--i] = (int*)malloc((sizeof(int) * m->width));
-		while (++k < m->width)
-			m->tab[i][k] = m->buf[k] - '0';
+		m->tab[--y] = (int*)malloc((sizeof(int) * m->width));
+		while (++x < m->width)
+			m->tab[y][x] = m->buf[x] - '0';
 		free(m->buf);
 	}
 	close(m->fd);
