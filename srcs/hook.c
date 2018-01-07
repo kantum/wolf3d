@@ -34,7 +34,7 @@ int		key_press(int keycode, t_env *e)
 		keycode == KEY_6 || keycode == KEY_7 || keycode == KEY_8)
 		background(keycode, e);
 	else if (keycode == KEY_SPACEBAR)
-		shot(e);
+		e->flags ^= SHOT;
 	else if (keycode == KEY_MINUS)
 		e->m.size--;
 	else if (keycode == KEY_EQUAL)

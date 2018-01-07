@@ -36,7 +36,6 @@ void	draw(t_env *e)
 	weapon(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	mlx_put_image_to_window(e->mlx, e->win, e->h.imgun, 0, 0);
-	e->h.rotspeed = e->frametime * 0.03;
 }
 
 int		quit(t_env *e)

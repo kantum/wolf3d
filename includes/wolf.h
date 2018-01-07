@@ -35,6 +35,7 @@
 # define HERO				1<<1
 # define RADAR				1<<2
 # define FAST				1<<3
+# define SHOT				1<<4
 
 # define GUN_1				1<<0
 # define GUN_2				1<<1
@@ -222,6 +223,5 @@ void					free_tab(char **tab);
 void					weapon(t_env *e);
 void					change_weapon(t_env *e);
 void					background(int keycode, t_env *e);
-void					shot(t_env *e);
 
 #endif

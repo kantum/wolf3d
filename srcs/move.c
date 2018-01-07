@@ -24,9 +24,9 @@ int		move(t_env *e)
 void	movupdown(t_env *e)
 {
 	if (e->flags & FAST)
-		e->h.speed = 0.2;
+		e->h.speed = 0.3;
 	else
-		e->h.speed = 0.07;
+		e->h.speed = 0.1;
 	if (e->h.mov & MOVDOWN)
 	{
 		if (!(e->m.tab[(int)(e->h.x - e->h.dir.x * e->h.speed)]
@@ -51,6 +51,10 @@ void	movleft(t_env *e)
 	double	oldirx;
 	double	oldplanex;
 
+	if (e->flags & FAST)
+		e->h.rotspeed = e->frametime * 0.04;
+	else
+		e->h.rotspeed = e->frametime * 0.02;
 	if (e->h.mov & MOVLEFT)
 	{
 		oldirx = e->h.dir.x;
@@ -71,6 +75,10 @@ void	movright(t_env *e)
 	double	oldirx;
 	double	oldplanex;
 
+	if (e->flags & FAST)
+		e->h.rotspeed = e->frametime * 0.04;
+	else
+		e->h.rotspeed = e->frametime * 0.02;
 	if (e->h.mov & MOVRIGHT)
 	{
 		oldirx = e->h.dir.x;
