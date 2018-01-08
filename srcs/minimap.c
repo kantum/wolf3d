@@ -15,14 +15,18 @@
 void	hero(t_env *e)
 {
 	int		size;
+	double		x;
+	double		y;
 
 	size = -3;
+	x = e->h.y;
+	y = -e->h.x + 1 + e->m.height;
 	while (++size < 3)
 	{
-		put_pixel(e->h.x * e->m.size + e->m.offx + size,
-				e->h.y * e->m.size + e->m.offy, 0xff66cc, e);
-		put_pixel(e->h.x * e->m.size + e->m.offx,
-				e->h.y * e->m.size + e->m.offy + size, 0xff66cc, e);
+		put_pixel(x * e->m.size + e->m.offx + size,
+				y * e->m.size + e->m.offy, 0xff66cc, e);
+		put_pixel(x * e->m.size + e->m.offx,
+				y * e->m.size + e->m.offy + size, 0xff66cc, e);
 	}
 }
 
@@ -71,26 +75,31 @@ void	block(int x, int y, int color, t_env *e)
 
 void	color_map(int x, int y, t_env *e)
 {
+	int		rx;
+	int		ry;
+
+	rx = y;
+	ry = -x + e->m.height;
 	if (e->m.tab[x][y] == 0)
-		block(x, y, 0x333e62, e);
-	if (e->m.tab[x][y] == 1)
-		block(x, y, 0x828E96, e);
+		block(rx, ry, 0x333e62, e);
+	else if (e->m.tab[x][y] == 1)
+		block(rx, ry, 0x828E96, e);
 	else if (e->m.tab[x][y] == 2)
-		block(x, y, 0xffb847, e);
+		block(rx, ry, 0xffb847, e);
 	else if (e->m.tab[x][y] == 3)
-		block(x, y, 0x828E96, e);
+		block(rx, ry, 0x828E96, e);
 	else if (e->m.tab[x][y] == 4)
-		block(x, y, 0x48dc64, e);
+		block(rx, ry, 0x48dc64, e);
 	else if (e->m.tab[x][y] == 5)
-		block(x, y, 0x6e707d, e);
+		block(rx, ry, 0x6e707d, e);
 	else if (e->m.tab[x][y] == 6)
-		block(x, y, 0x633d89, e);
+		block(rx, ry, 0x633d89, e);
 	else if (e->m.tab[x][y] == 7)
-		block(x, y, 0x319030, e);
+		block(rx, ry, 0x319030, e);
 	else if (e->m.tab[x][y] == 8)
-		block(x, y, 0xb2199f, e);
+		block(rx, ry, 0xb2199f, e);
 	else if (e->m.tab[x][y] == 9)
-		block(x, y, 0xfdff84, e);
+		block(rx, ry, 0xfdff84, e);
 }
 
 void	minimap(t_env *e)
