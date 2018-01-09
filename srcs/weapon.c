@@ -32,7 +32,7 @@ void	weapon(t_env *e)
 		{
 			e->h.gun = "./images/weapons/gun1.xpm";
 			e->h.weapon = GUN_1;
-			e->flags ^=SHOT;
+			e->flags ^= SHOT;
 		}
 	}
 	if (!(e->h.imgun = mlx_xpm_file_to_image(e->mlx, e->h.gun,

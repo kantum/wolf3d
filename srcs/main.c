@@ -79,11 +79,11 @@ int		main(int argc, char **argv)
 {
 	t_env	e;
 
+	(void)argc;
 	init(&e);
-	if (argc == 2)
-		parse(argv[1], &e);
-	else
+	if (argc == 1)
 		error(&e, NO_ARG);
+	parse(argv[1], &e);
 	draw(&e);
 	hooks(&e);
 }

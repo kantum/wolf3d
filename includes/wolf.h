@@ -20,49 +20,49 @@
 # include "mlx_keys.h"
 # include "libft.h"
 
-# define NB_COLOR			6
+# define NB_COLOR				6
 
-# define WIDTH				1280
-# define HEIGHT				720
-# define MOVSPEED			0.07
+# define WIDTH					1280
+# define HEIGHT					720
+# define MOVSPEED				0.07
 
-# define MOVUP				1<<0
-# define MOVDOWN			1<<1
-# define MOVRIGHT			1<<2
-# define MOVLEFT			1<<3
+# define MOVUP					1<<0
+# define MOVDOWN				1<<1
+# define MOVRIGHT				1<<2
+# define MOVLEFT				1<<3
 
-# define MAP				1<<0
-# define HERO				1<<1
-# define RADAR				1<<2
-# define FAST				1<<3
-# define SHOT				1<<4
+# define MAP					1<<0
+# define HERO					1<<1
+# define RADAR					1<<2
+# define FAST					1<<3
+# define SHOT					1<<4
 
-# define GUN_1				1<<0
-# define GUN_2				1<<1
-# define GUN_3				1<<2
+# define GUN_1					1<<0
+# define GUN_2					1<<1
+# define GUN_3					1<<2
 
-# define NB_TEXTURE			9
-# define TEXWIDTH			512
-# define TEXHEIGHT			512
+# define NB_TEXTURE				9
+# define TEXWIDTH				512
+# define TEXHEIGHT				512
 
-# define NO_ARG				1
-# define TEXTURE_ERR		2
-# define OPEN_ERR			3
-# define PARSE_ERR			4
-# define MALLOC_ERR			5
-# define BG_ERR				6
-# define GUN_ERR			7
-# define PPM_ERR			8
+# define NO_ARG					1
+# define TEXTURE_ERR			2
+# define OPEN_ERR				3
+# define PARSE_ERR				4
+# define MALLOC_ERR				5
+# define BG_ERR					6
+# define GUN_ERR				7
+# define PPM_ERR				8
 
-# define KEYPRESS			2
-# define KEYRELEASE			3
-# define KEYPRESSMASK		(1L<<0)
-# define KEYRELEASEMASK		(1L<<1)
-# define MOTIONNOTIFY		6
-# define POINTERMOTIONMASK	(1L<<6)
-# define BUTTONRELEASE		5
-# define BUTTONRELEASEMASK	(1L<<3)
-# define DESTROYNOTIFY		17
+# define KEYPRESS				2
+# define KEYRELEASE				3
+# define KEYPRESSMASK			(1L<<0)
+# define KEYRELEASEMASK			(1L<<1)
+# define MOTIONNOTIFY			6
+# define POINTERMOTIONMASK		(1L<<6)
+# define BUTTONRELEASE			5
+# define BUTTONRELEASEMASK		(1L<<3)
+# define DESTROYNOTIFY			17
 # define STRUCTURENOTIFYMASK	(1L<<17)
 
 typedef struct			s_rgb
@@ -121,7 +121,7 @@ typedef struct			s_map
 	int		height;
 	int		offx;
 	int		offy;
-	int		size;
+	float	size;
 	char	*buf;
 	t_point	*p;
 	int		**tab;

@@ -36,9 +36,9 @@ int		key_press(int keycode, t_env *e)
 	else if (keycode == KEY_SPACEBAR)
 		e->flags ^= SHOT;
 	else if (keycode == KEY_MINUS)
-		e->m.size--;
+		e->m.size -= 0.15;
 	else if (keycode == KEY_EQUAL)
-		e->m.size++;
+		e->m.size += 0.15;
 	return (0);
 }
 

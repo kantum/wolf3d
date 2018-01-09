@@ -16,14 +16,14 @@ void	init_map(t_env *e)
 {
 	e->m.offx = 30;
 	e->m.offy = 30;
-	e->m.size = 5;
+	e->m.size = 4.0;
 	e->flags = MAP;
 }
 
 void	init_hero(t_env *e)
 {
-	e->h.x = 5.0;
-	e->h.y = 11.5;
+	e->h.x = 1.5;
+	e->h.y = 1.5;
 	e->h.dir.x = -0.0;
 	e->h.dir.y = -1.0;
 	e->h.speed = 0.07;

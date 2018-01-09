@@ -93,6 +93,8 @@ int			check_border(t_env *e)
 
 t_env		*parse(char *arg, t_env *e)
 {
+	if (!ft_strcmp(arg, "/dev/zero"))
+		error(e, PARSE_ERR);
 	if (!(e->m.fd = open(arg, O_RDONLY)))
 		error(e, PARSE_ERR);
 	if (!scan_input(&e->m))

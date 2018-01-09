@@ -14,9 +14,9 @@
 
 void	hero(t_env *e)
 {
-	int		size;
 	double		x;
 	double		y;
+	int			size;
 
 	size = -3;
 	x = e->h.y;
